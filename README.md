@@ -1,4 +1,4 @@
-# sls3105_client
+# Junior Design P2P Payment System Client App
 
 ## Quick Start Guide
 1. Navigate to root of project
