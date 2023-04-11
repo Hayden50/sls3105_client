@@ -1,12 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
+import { ConvexProvider, ConvexReactClient } from 'convex/react';
 import { StyleSheet, Text, View } from 'react-native';
+import Friends from './lib/components/Friends';
+import 'react-native-get-random-values';
+
+const convex = new ConvexReactClient("https://wonderful-jackal-912.convex.cloud", {
+  unsavedChangesWarning: false,
+});
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ConvexProvider client={convex}>
+        <Friends />
+    </ConvexProvider>
   );
 }
 

@@ -1,0 +1,7 @@
+{
+  "project": "sls3105client",
+  "team": "ryantinder",
+  "prodUrl": "https://flippant-crab-607.convex.cloud",
+  "functions": "convex/",
+  "authInfo": []
+}
