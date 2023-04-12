@@ -1,15 +1,21 @@
 import React, { FC, useState } from "react";
-import { NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import AppStack from "./appstack";
 import AuthStack from "./authstack";
+import { SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 
 const MainNav: FC = () => {
-    const[user, setUser] = useState(null);
-    
-    return(
+    const [user, setUser] = useState(null);
+
+    return (
         <NavigationContainer>
-            {user != null ? <AppStack /> : <AuthStack />}
+            <SignedIn >
+                <AppStack />
+            </SignedIn >
+            <SignedOut>
+                <AuthStack />
+            </SignedOut>
         </NavigationContainer>
     )
 }

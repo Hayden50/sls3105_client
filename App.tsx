@@ -25,12 +25,7 @@ export default function App() {
     return (
         <ConvexProvider client={convex}>
             <ClerkProvider publishableKey="pk_test_dGhvcm91Z2gtbG9jdXN0LTk2LmNsZXJrLmFjY291bnRzLmRldiQ" tokenCache={tokenCache}>
-                <SignedIn>
-                    <MainNav />
-                </SignedIn>
-                <SignedOut>
-                    <Login />
-                </SignedOut>
+                <MainNav />
             </ClerkProvider>
         </ConvexProvider>
     );
