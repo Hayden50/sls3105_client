@@ -5,6 +5,7 @@ import 'react-native-get-random-values';
 import { SignedIn, SignedOut, ClerkProvider } from '@clerk/clerk-expo';
 import * as SecureStore from "expo-secure-store";
 import Login from './lib/components/Login';
+import MainNav from './src/navigation/mainNavigation';
 
 const tokenCache = {
   getToken(key: string) { 
@@ -25,7 +26,7 @@ export default function App() {
         <ConvexProvider client={convex}>
             <ClerkProvider publishableKey="pk_test_dGhvcm91Z2gtbG9jdXN0LTk2LmNsZXJrLmFjY291bnRzLmRldiQ" tokenCache={tokenCache}>
                 <SignedIn>
-                    <Friends />
+                    <MainNav />
                 </SignedIn>
                 <SignedOut>
                     <Login />
