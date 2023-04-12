@@ -5,14 +5,20 @@ import { useQuery, useMutation } from '../../convex/_generated/react';
 export default function Friends() {
     const arr = useQuery("listFriends") || []
     const addFriends = useMutation("addFriends");
+    const deleteFriend = useMutation("deleteFriend");
   
-  const handleClick = () => {
-    addFriends({ user_id: 'user_id1', friend_id: 'friend_id' });
+  const addFriendOnClick = () => {
+    addFriends({ user_id: 11, friend_id: 1 });
+  };
+  
+  const deleteFriendOnClick = () => {
+    deleteFriend({ user_id: 11, friend_id: 1 });
   };
 
   return (
     <View style={styles.container}>
-      <Button onPress={handleClick} title="Click me" />
+      <Button onPress={addFriendOnClick} title="Add a friend" />
+      <Button onPress={deleteFriendOnClick} title="Remove a friend" />
       <Text>Open up App.tsx to start working on your app! {arr.length} </Text>
       {arr &&
         arr.map((item, index) => {
