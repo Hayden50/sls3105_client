@@ -2,11 +2,31 @@ import React, { FC, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Input } from "../components";
+import { useSignUp } from "@clerk/clerk-expo";
 
 const App: FC = (props) => {
-    const[name, setName] = useState<string | null>(null)
-    const[email, setEmail] = useState<string | null>(null)
-    const[Password, setPassword] = useState<string | null>(null)
+    const[name, setName] = useState("")
+    const[email, setEmail] = useState("")
+    const[password, setPassword] = useState("")
+    const {signUp, setSession, isLoaded} = useSignUp()
+    const signupHandler = async () => {
+        if (!name || !email || !password || !isLoaded) {
+            return;
+        }
+
+        try {
+            const completeSignUp = await signUp.create({
+                emailAddress: email,
+                password,
+                username: name
+            });
+            
+            await setSession(completeSignUp.createdSessionId);
+        } catch (err) {
+            // @ts-ignore
+            console.log("Error:> " + (err.errors ? err.errors[0].message : err));
+        }
+    }
 
     return (
         <View style = {styles.container}>
