@@ -4,6 +4,7 @@ import Friends from './lib/components/Friends';
 import 'react-native-get-random-values';
 import { SignedIn, SignedOut, ClerkProvider } from '@clerk/clerk-expo';
 import * as SecureStore from "expo-secure-store";
+import Login from './lib/components/Login';
 
 const tokenCache = {
   getToken(key: string) { 
