@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Friends from './lib/components/Friends';
 import 'react-native-get-random-values';
 
-const convex = new ConvexReactClient("https://wonderful-jackal-912.convex.cloud", {
+const convex = new ConvexReactClient("https://flippant-crab-607.convex.cloud", {
   unsavedChangesWarning: false,
 });
 

@@ -7,12 +7,12 @@ export default function Friends() {
     const addFriends = useMutation("addFriends");
     const deleteFriend = useMutation("deleteFriend");
   
-  const addFriendOnClick = () => {
-    addFriends({ user_id: 11, friend_id: 1 });
+  const addFriendOnClick = async () => {
+    await addFriends({ user_id: 0, friend_id: 11 });
   };
   
-  const deleteFriendOnClick = () => {
-    deleteFriend({ user_id: 11, friend_id: 1 });
+  const deleteFriendOnClick = async () => {
+    await deleteFriend({ user_id: 0, friend_id: 11 });
   };
 
   return (
