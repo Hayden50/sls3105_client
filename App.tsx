@@ -20,7 +20,6 @@ const convex = new ConvexReactClient("https://flippant-crab-607.convex.cloud", {
     unsavedChangesWarning: false,
 });
 
-
 export default function App() {
     return (
         <ConvexProvider client={convex}>
