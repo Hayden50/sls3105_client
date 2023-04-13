@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface SearchBarProps {
   onSearchChange: (searchValue: string) => void;
+  onSearchClick: (searchValue: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchChange = (text: string) => {
     setSearchValue(text);
     onSearchChange(text);
+  };
+  
+  const handleSearchClick = () => {
+    onSearchClick(searchValue);
   };
 
   return (
@@ -20,6 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
         placeholder="Search for friends..."
         onChangeText={handleSearchChange}
         value={searchValue}
+        onPressIn={handleSearchClick}
       />
     </View>
   );
