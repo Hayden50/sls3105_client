@@ -1,48 +1,15 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Button, Input } from "../components";
-import { useSignUp } from "@clerk/clerk-expo";
+import { SignUpForm } from "../components/signupform";
+import { VerifyEmail } from "../components/verifyemail";
 
-const App: FC = (props) => {
-    const[name, setName] = useState("")
-    const[email, setEmail] = useState("")
-    const[password, setPassword] = useState("")
-    const {signUp, setSession, isLoaded} = useSignUp()
-    const signupHandler = async () => {
-        if (!name || !email || !password || !isLoaded) {
-            return;
-        }
-
-        try {
-            const completeSignUp = await signUp.create({
-                emailAddress: email,
-                password,
-                username: name
-            });
-            
-            await setSession(completeSignUp.createdSessionId);
-        } catch (err) {
-            // @ts-ignore
-            console.log("Error:> " + (err.errors ? err.errors[0].message : err));
-        }
-    }
-
+const App: FC = ({navigation}) => {
+    const [verifyingEmail, setVerifyingEmail] = useState(false)
+    const [email, setEmail] = useState("")
     return (
         <View style = {styles.container}>
-            <Text>Sign Up Screen</Text>
-            <Input placeholder="Name" onChangeText={(text) => setName(text)}/>
-            <Input placeholder="Email" onChangeText={(text) => setEmail(text)}/>
-            <Input placeholder="Password" secureTextEntry onChangeText={(text) => setPassword(text)}/>
-            <Button title = "Sign Up" onPress={() => alert('Pressed')}/>
-            <View style = {styles.loginText}>
-                <Text>Already have an account?</Text>
-                <TouchableOpacity onPress={() => props.navigation.navigate('login')} style = {{marginHorizontal: 5}}>
-                    <Text style = {{color: 'blue'}}>Login Here</Text>
-                </TouchableOpacity>
-            </View>
+            {verifyingEmail ? <VerifyEmail email={email} /> : <SignUpForm navigation={navigation} callback={setVerifyingEmail} emailCallback={setEmail}/>}
         </View>
-
     )
 }
 
