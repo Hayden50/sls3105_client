@@ -3,16 +3,19 @@ import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Input } from ".";
 import { useSignUp } from "@clerk/clerk-expo";
+import { useMutation } from "../../convex/_generated/react";
 
 export const VerifyEmail: FC<{email: string}> = ({email}) => {
     const [code, setCode] = useState("")
     const {signUp, setSession} = useSignUp();
+    const addUser = useMutation("addUser")
     const handleVerify = async () => {
         if (!signUp || !code) return;
         console.log("attempting to verify", code)
         await signUp.attemptEmailAddressVerification({code})
         console.log(signUp.unverifiedFields)
         await setSession(signUp.createdSessionId);
+        addUser({ username: signUp.username, email: signUp.emailAddress })
     }
     return (
         <View style = {styles.container}>
