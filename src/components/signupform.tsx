@@ -7,9 +7,10 @@ import { useSignUp } from "@clerk/clerk-expo";
 interface Props {
     callback: React.Dispatch<React.SetStateAction<boolean>>,
     emailCallback: React.Dispatch<React.SetStateAction<string>>,
+    navigation: any
 }
 
-export const SignUpForm: FC<Props> = ({ callback, emailCallback}) => {
+export const SignUpForm: FC<Props> = ({ navigation, callback, emailCallback}) => {
     const[handle, setHandle] = useState("")
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
@@ -47,7 +48,7 @@ export const SignUpForm: FC<Props> = ({ callback, emailCallback}) => {
             <Button title = "Sign Up" onPress={signupHandler}/>
             <View style = {styles.loginText}>
                 <Text>Already have an account?</Text>
-                <TouchableOpacity onPress={() => {props.navigation.navigate('login')}} style = {{marginHorizontal: 5}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('login')}} style = {{marginHorizontal: 5}}>
                     <Text style = {{color: 'blue'}}>Login Here</Text>
                 </TouchableOpacity>
             </View>

@@ -3,13 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import { SignUpForm } from "../components/signupform";
 import { VerifyEmail } from "../components/verifyemail";
 
-const App: FC = (props) => {
+const App: FC = ({navigation}) => {
     const [verifyingEmail, setVerifyingEmail] = useState(false)
     const [email, setEmail] = useState("")
     return (
         <View style = {styles.container}>
-            <Text>{JSON.stringify(props)}</Text>
-            {verifyingEmail ? <VerifyEmail email={email} /> : <SignUpForm callback={setVerifyingEmail} emailCallback={setEmail}/>}
+            {verifyingEmail ? <VerifyEmail email={email} /> : <SignUpForm navigation={navigation} callback={setVerifyingEmail} emailCallback={setEmail}/>}
         </View>
     )
 }

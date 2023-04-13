@@ -2,8 +2,9 @@ import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Input, Button } from "../components";
 import { useSignIn } from "@clerk/clerk-expo";
+import { StackScreenProps } from "@react-navigation/stack";
 
-const App: FC = (props) => {
+const App = ({navigation}) => {
     const { signIn, setSession, isLoaded } = useSignIn();
 
     const[email, setEmail] = useState("")
@@ -41,7 +42,7 @@ const App: FC = (props) => {
             <Button title = "Log in" onPress={handleLogin}/>
             <View style = {styles.signupText}>
                 <Text>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => props.navigation.navigate('signup')} style = {{marginHorizontal: 5}}>
+                <TouchableOpacity onPress={() => navigation.navigate('signup')} style = {{marginHorizontal: 5}}>
                     <Text style = {{color: 'blue'}}>Sign Up Here</Text>
                 </TouchableOpacity>
             </View>
