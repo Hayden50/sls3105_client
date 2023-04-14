@@ -11,8 +11,10 @@ export default mutation(async ({ db }, { user_username, friend_username}) => {
   if (!friend) {
     return null;
   }
+  
   const check_friend = await db.query("friends")
-                        .filter(q => q.and(q.eq(q.field("friend_id"), friend_username), q.eq(q.field("user_id"), user_username)))
+                        .filter(q => q.and(q.eq(q.field("friend_username"), friend_username), 
+                                          q.eq(q.field("user_username"), user_username)))
                         .first();
 
   if (check_friend) {
