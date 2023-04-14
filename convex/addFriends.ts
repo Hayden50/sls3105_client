@@ -1,13 +1,23 @@
 import { mutation } from "./_generated/server";
 
-export default mutation(async ({ db }, { user_id, friend_id }) => {
+export default mutation(async ({ db }, { user_username, friend_username}) => {
+
+  user_username = user_username.toLowerCase();
+  friend_username = friend_username.toLowerCase();
   
-  const friend = await db.query("friends")
-          .filter(q => q.and(q.eq(q.field("user_id"), user_id), q.eq(q.field("friend_id"), friend_id)))
-          .first();
+  const friend = await db.query("users")
+                            .filter(q => q.eq(q.field("username"), friend_username))
+                            .first();
   if (!friend) {
-    await db.insert("friends", {user_id, friend_id});
-    return friend;
+    return null;
   }
-  return friend; 
+  const check_friend = await db.query("friends")
+                        .filter(q => q.and(q.eq(q.field("friend_id"), friend_username), q.eq(q.field("user_id"), user_username)))
+                        .first();
+
+  if (check_friend) {
+    return friend_username;
+  }
+  await db.insert("friends", {user_username, friend_username});
+  return friend;
 });

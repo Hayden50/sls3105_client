@@ -1,23 +1,29 @@
 import { useClerk, useSignIn } from "@clerk/clerk-expo";
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useQuery } from "../../convex/_generated/react";
+import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
+import {useUser} from "@clerk/clerk-expo";
 
 
 const App: FC = () => {
 
-  const [num, setNum] = useState(0);
-  const [searching, setSearching] = useState(false);
-  // const [friendsList, setFriendsList] = useState("");
+  const addFriends = useMutation("addFriends");
+  const [word, setWord] = useState("");
+  // const [friendsList, setFriendsList] = useState([]);
   const {signOut} = useClerk();
+  const {user} = useUser();
   
-  const handleChange = () => {
-    setNum(num + 1);
+  const handleChange = (value: string) => {
+    setWord(value);
   }
   
   const handleSearchClick = () => {
-    setSearching(!searching);
+    console.log("Clicked Search Bar");
+  }
+  
+  const handleLogout = () => {
+    addFriends({user_username: user?.username, friend_username: word})
   }
     
   return (
@@ -26,23 +32,20 @@ const App: FC = () => {
         onSearchClick={handleSearchClick}
         onSearchChange={handleChange}
       />
-      {searching ? (
-        <View style={styles.container}>
+      <View style={styles.container}>
+          <Text>{user?.id}</Text>
+          <Text>{user?.username}</Text>
+          <Text>{word}</Text>
           <Text>Here we will render the friends list</Text>
-        </View>
-      ) : (
-        <View style={styles.container}>
-          <Text>Home Screen: {num}</Text>
-          <Text>Here we will list previous transactions / interactions</Text>
           <TouchableOpacity
-            onPress={() => {
-              signOut();
-            }}
-          >
+              // onPress={() => {
+              //   signOut();
+              // }}
+              onPress={handleLogout}
+            >
             <Text>Log out</Text>
           </TouchableOpacity>
-        </View>
-      )}
+      </View>
     </>
   );
 }
