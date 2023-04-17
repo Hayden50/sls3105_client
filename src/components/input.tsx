@@ -14,7 +14,7 @@ interface Props {
 const Input: FC<Props> = (props) => {
     return (
         <View style={styles.container}>
-            <TextInput placeholder={props.placeholder} secureTextEntry={props.secureTextEntry || false} onChangeText={props.onChangeText} />
+            <TextInput placeholder={props.placeholder} autoCapitalize='none' secureTextEntry={props.secureTextEntry || false} onChangeText={props.onChangeText} />
         </View>
     )
 }

@@ -41,7 +41,7 @@ export const SignUpForm: FC<Props> = ({ navigation, callback, emailCallback}) =>
 
     return (
         <View style = {styles.container}>
-            <Text>Sign Up</Text>
+            <Text style={styles.title}>Create Account</Text>
             <Input placeholder="Handle" onChangeText={setHandle}/>
             <Input placeholder="Email" onChangeText={setEmail}/>
             <Input placeholder="Password" secureTextEntry onChangeText={setPassword}/>
@@ -67,5 +67,9 @@ const styles = StyleSheet.create({
     loginText:{
         flexDirection: 'row',
         marginVertical: 20
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold',
     }
 })
