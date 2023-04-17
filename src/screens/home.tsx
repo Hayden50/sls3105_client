@@ -41,10 +41,16 @@ const App: FC = () => {
                 <View style={styles.friendsContainer}>
                     {filtered_friends.length > 0 && <View style={styles.friendsList} >
                         <Text style={styles.friendsTitle}>Friends</Text>
-                        {friends && filtered_friends.slice(0, 10).map((user) => {
+                        {friends && filtered_friends.slice(0, 10).map((_user) => {
                             return (
-                                <View style={styles.friendsRow} key={user}>
-                                    <Text>@{user}</Text>
+                                <View style={styles.friendsRow} key={_user}>
+                                    <Text>@{_user}</Text>
+                                    <TouchableOpacity style={styles.smallButton} onPress={() => {
+                                        console.log("tapped delete")
+                                        deleteFriend({ user_username: user?.username, friend_username: _user })
+                                    }}>
+                                        <Text style={{fontSize: 14, color: "red"}}>X</Text>
+                                    </TouchableOpacity>
                                 </View>
                             )
                             })
@@ -53,30 +59,22 @@ const App: FC = () => {
                     }
                     <View style={styles.usersList}>
                         <Text style={styles.friendsTitle}>All Users</Text>
-                        {filtered_users.length > 0 ? filtered_users.slice(0, 3).map((user) => {
+                        {filtered_users.length > 0 ? filtered_users.slice(0, 3).map((_user) => {
                             return (
-                                <View style={styles.friendsRow} key={user}>
-                                    <Text>@{user}</Text>
+                                <View style={styles.friendsRow} key={_user}>
+                                    <Text>@{_user}</Text>
+                                    <TouchableOpacity style={styles.smallButton} onPress={() => {
+                                        console.log("tapped add")
+                                        addFriends({ user_username: user?.username, friend_username: _user })
+                                    }}>
+                                        <Text style={{fontSize: 20, color: "purple"}}>+</Text>
+                                    </TouchableOpacity>
                                 </View>
                             )
                             }) : <Text>No users matching search criteria</Text>
                         }
                     </View>
                 </View>
-                <TouchableOpacity
-                    onPress={handleRemoveFriend}
-                    style={styles.button}
-                >
-                    <Text>Remove friend</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={handleAddFriend}
-                    style={styles.button}
-                >
-                    <Text>Add friend</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity
                     onPress={() => {
                         signOut();
@@ -129,11 +127,15 @@ const styles = StyleSheet.create({
     },
     friendsRow: {
         display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
         borderColor: "lightgrey",
         borderWidth: 1,
         borderRadius: 10,
         width: '100%',
-        padding: 10,
+        paddingLeft: 6,
+        height: 50
     },
     friendsTitle: {
         fontWeight: "bold",
@@ -145,5 +147,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 2,
         width: '100%',
+    },
+    smallButton: {
+        padding: 12
     }
 })
