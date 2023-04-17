@@ -8,6 +8,12 @@
    b. Run ``npx convex dev`` to start the backend locally
 4. Navigate to the generated QR code to test project
 
+## 4/16/2023
+We chose to start with the adding friends feature as it is the first step in peer-to-peer payment.  First, the user must create an account and connect with another, then they can send/request a payment.  By requiring users to create an account and using email verification, we can ensure accounts are legitimate. This allows for users to be able to send payments stress-free as we validate users upon creation of their account. There is a search bar at the top of the screen for which users can search accounts. Then, they can add/remove friends quickly by a press of a button.
+
+Future iterations will implement the payment infrastructure that makes the app work.
+
+
 ## Overview of project stack .
 
 Mojaloop is an open-source platform that provides a framework for interoperable digital payments. It is built using modern technologies and is designed to be scalable, flexible, and customizable. It uses the ISO 20022 standard for financial messaging and supports a variety of payment types, including person-to-person, merchant payments, and bill payments. The platform is developed using Node.js and runs on the Microsoft Azure cloud platform.
