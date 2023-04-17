@@ -23,6 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) 
     <View style={styles.container}>
       <TextInput
         style={styles.input}
+        autoCapitalize='none'
         placeholder="Search for friends..."
         onChangeText={handleSearchChange}
         value={searchValue}
@@ -34,13 +35,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) 
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
-    margin: 10,
     borderRadius: 8,
     borderColor: '#ccc',
     borderWidth: 1,
+    marginBottom: 10
   },
   input: {
     height: 40,

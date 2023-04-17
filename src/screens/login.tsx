@@ -30,7 +30,7 @@ const App = ({navigation}) => {
 
     return (
         <View style = {styles.container}>
-            <Text>Login Screen</Text>
+            <Text style = {styles.title}>Login Screen</Text>
             <Input 
                 placeholder="Email" 
                 onChangeText={(text) => setEmail(text)}
@@ -63,5 +63,9 @@ const styles = StyleSheet.create({
     signupText:{
         flexDirection: 'row',
         marginVertical: 20
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 })

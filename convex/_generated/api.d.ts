@@ -14,6 +14,7 @@ import type * as addFriends from "../addFriends";
 import type * as addUser from "../addUser";
 import type * as deleteFriend from "../deleteFriend";
 import type * as listFriends from "../listFriends";
+import type * as listUsers from "../listUsers";
 import type * as searchFriends from "../searchFriends";
 
 /**
@@ -30,5 +31,6 @@ export type API = ApiFromModules<{
   addUser: typeof addUser;
   deleteFriend: typeof deleteFriend;
   listFriends: typeof listFriends;
+  listUsers: typeof listUsers;
   searchFriends: typeof searchFriends;
 }>;
