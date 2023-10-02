@@ -47,9 +47,9 @@ export const SignUpForm: FC<Props> = ({ navigation, callback, emailCallback}) =>
             <Input placeholder="Password" secureTextEntry onChangeText={setPassword}/>
             <Button title = "Sign Up" onPress={signupHandler}/>
             <View style = {styles.loginText}>
-                <Text>Already have an account?</Text>
+                <Text style = {{fontFamily: 'WorkSans_400Regular'}}>Already have an account?</Text>
                 <TouchableOpacity onPress={() => {navigation.navigate('login')}} style = {{marginHorizontal: 5}}>
-                    <Text style = {{color: 'blue'}}>Login Here</Text>
+                    <Text style = {{color: 'blue', fontFamily: 'WorkSans_400Regular'}}>Login Here</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -66,10 +66,12 @@ const styles = StyleSheet.create({
     },
     loginText:{
         flexDirection: 'row',
-        marginVertical: 20
+        marginVertical: 20,
+        fontFamily: 'WorkSans_600SemiBold'
     },
     title: {
-        fontSize: 30,
+        fontSize: 40,
         fontWeight: 'bold',
+        fontFamily: 'WorkSans_600SemiBold'
     }
 })

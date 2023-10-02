@@ -6,6 +6,7 @@ import { SignedIn, SignedOut, ClerkProvider } from '@clerk/clerk-expo';
 import * as SecureStore from "expo-secure-store";
 import Login from './lib/components/Login';
 import MainNav from './src/navigation/mainNavigation';
+import { useFonts, WorkSans_400Regular, WorkSans_600SemiBold} from '@expo-google-fonts/work-sans';
 
 const tokenCache = {
   getToken(key: string) { 
@@ -22,6 +23,10 @@ const convex = new ConvexReactClient("https://flippant-crab-607.convex.cloud", {
 
 
 export default function App() {
+    const [fontsLoaded] = useFonts({
+        WorkSans_400Regular,
+        WorkSans_600SemiBold,
+    });
     return (
         <ConvexProvider client={convex}>
             <ClerkProvider publishableKey="pk_test_dGhvcm91Z2gtbG9jdXN0LTk2LmNsZXJrLmFjY291bnRzLmRldiQ" tokenCache={tokenCache}>
@@ -38,4 +43,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    text: {
+        fontFamily: 'WorkSans_400Regular',
+    }
 });

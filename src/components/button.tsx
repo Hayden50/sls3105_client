@@ -32,6 +32,7 @@ const Styles = StyleSheet.create({
     },
 
     text:{
-        color : '#fff'
+        color : '#fff',
+        fontFamily: 'WorkSans_400Regular'
     }
 })

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     },
     loginText:{
         flexDirection: 'row',
-        marginVertical: 20
+        marginVertical: 20,
+        fontFamily: 'WorkSans_400Regular'
     }
 })
