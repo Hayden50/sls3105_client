@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    fontFamily: 'WorkSans_400Regular'
   },
 });
 

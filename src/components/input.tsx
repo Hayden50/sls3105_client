@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        padding: 15
+        padding: 15,
+        fontFamily: 'WorkSans_400Regular'
 
     }
 })
