@@ -95,7 +95,7 @@ export default App;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 140,
+        marginTop: 80,
         padding: 10
     },
     localContainer: {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     },
     greeting: {
         fontWeight: "bold",
-        marginBottom: 30,
+        marginBottom: 20,
         fontFamily: 'WorkSans_600SemiBold',
         textAlign: 'center',
         fontSize: 30
