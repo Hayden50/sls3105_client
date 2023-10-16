@@ -5,3 +5,7 @@ import Requests from './requests'
 
 export {SignUp, Login, Home, Requests}
 
+import Profile from './profile'
+
+export {SignUp, Login, Home, Profile}
+
