@@ -30,16 +30,16 @@ const App = ({navigation}) => {
 
     return (
         <View style = {styles.container}>
-            <Text style = {styles.title}>Login Screen</Text>
+            <Text style = {styles.title}>Request Funds</Text>
             <Input 
-                placeholder="Email" 
-                onChangeText={(text) => setEmail(text)}
+                placeholder="Username" 
+                onChangeText={(text) => setUser(text)}
             />
             <Input 
-                placeholder="Password" 
-                secureTextEntry onChangeText={(text) => setPassword(text)}
+                placeholder="Amount" 
+                secureTextEntry onChangeText={(text) => setAmount(text)}
             />
-            <Button title = "Log in" onPress={handleLogin}/>
+            <Button title = "Send" onPress={handleLogin}/>
             <View style = {styles.signupText}>
                 <Text>Don't have an account?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('signup')} style = {{marginHorizontal: 5}}>
