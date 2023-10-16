@@ -6,7 +6,7 @@ import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 
 
-const App: FC = () => {
+const App: FC = ({navigation}) => {
 
     const { user } = useUser();
     const addFriends = useMutation("addFriends");
@@ -33,7 +33,7 @@ const App: FC = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.greeting}>Hello @{user?.username}</Text>
-            <SearchBar
+            <SearchBar 
                 onSearchClick={handleSearchClick}
                 onSearchChange={setSearchTerm}
             />
@@ -44,7 +44,7 @@ const App: FC = () => {
                         {friends && filtered_friends.slice(0, 10).map((user) => {
                             return (
                                 <View style={styles.friendsRow} key={user}>
-                                    <Text>@{user}</Text>
+                                    <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
                                 </View>
                             )
                             })
@@ -56,10 +56,10 @@ const App: FC = () => {
                         {filtered_users.length > 0 ? filtered_users.slice(0, 3).map((user) => {
                             return (
                                 <View style={styles.friendsRow} key={user}>
-                                    <Text>@{user}</Text>
+                                    <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
                                 </View>
                             )
-                            }) : <Text>No users matching search criteria</Text>
+                            }) : <Text style = {{fontFamily: 'WorkSans_400Regular'}}>No users matching search criteria</Text>
                         }
                     </View>
                 </View>
@@ -67,14 +67,14 @@ const App: FC = () => {
                     onPress={handleRemoveFriend}
                     style={styles.button}
                 >
-                    <Text>Remove friend</Text>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={handleAddFriend}
                     style={styles.button}
                 >
-                    <Text>Add friend</Text>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Add friend</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -83,7 +83,12 @@ const App: FC = () => {
                     }}
                     style={styles.button}
                 >
-                    <Text>Log out</Text>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
             </View>
@@ -95,7 +100,7 @@ export default App;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 50,
+        marginTop: 60,
         padding: 10
     },
     localContainer: {
@@ -105,14 +110,18 @@ const styles = StyleSheet.create({
     },
     greeting: {
         fontWeight: "bold",
-        marginBottom: 10,
+        marginBottom: 20,
+        fontFamily: 'WorkSans_600SemiBold',
+        textAlign: 'center',
+        fontSize: 30
     },
     button: {
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 30,
         marginTop: 10,
         marginBottom: 10,
-        padding: 5
+        padding: 15,
+        backgroundColor: '#300796'
     },
     friendsContainer: {
         display: "flex",
@@ -134,11 +143,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '100%',
         padding: 10,
+        backgroundColor: '#fff'
     },
     friendsTitle: {
         fontWeight: "bold",
         fontSize: 20,
-        marginBottom: 4
+        marginBottom: 4,
+        fontFamily: 'WorkSans_600SemiBold',
+        textAlign: 'center'
     },
     usersList: {
         display: "flex",

@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     title: {
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 40,
+        fontWeight: 'bold',
+        fontFamily: 'WorkSans_600SemiBold'
     }
 })
