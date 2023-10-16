@@ -104,9 +104,8 @@ const App: FC = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={handleAddRequest}
-                    style={styles.moneyButton}
-                >
+                    onPress={() => navigation.navigate('Requests')}
+                    style={styles.moneyButton}>
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>$</Text>
                 </TouchableOpacity>
 

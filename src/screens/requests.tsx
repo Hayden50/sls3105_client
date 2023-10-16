@@ -1,71 +1,87 @@
-import React, { FC, useState } from "react";
+import { useClerk, useSignIn } from "@clerk/clerk-expo";
+import React, { FC, useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Input, Button } from "../components";
-import { useSignIn } from "@clerk/clerk-expo";
-import { StackScreenProps } from "@react-navigation/stack";
+import { useQuery, useMutation } from "../../convex/_generated/react";
+import SearchBar from "../components/search_bar";
+import { useUser } from "@clerk/clerk-expo";
 
-const App = ({navigation}) => {
-    const { signIn, setSession, isLoaded } = useSignIn();
 
-    const[email, setEmail] = useState("")
-    const[password, setPassword] = useState("")
+const App: FC = ({navigation}) => {
 
-    const handleLogin = async () => {
-        if (!isLoaded) {
-            return;
-          }
-      
-          try {
-            const completeSignIn = await signIn.create({
-              identifier: email,
-              password,
-            });
-      
-            await setSession(completeSignIn.createdSessionId);
-          } catch (err) {
-            // @ts-ignore
-            console.log("Error:> " + (err.errors ? err.errors[0].message : err));
-          }
-    }
-
+    const { user } = useUser();
+    const { signOut } = useClerk();
+    
     return (
-        <View style = {styles.container}>
-            <Text style = {styles.title}>Request Funds</Text>
-            <Input 
-                placeholder="Username" 
-                onChangeText={(text) => setUser(text)}
-            />
-            <Input 
-                placeholder="Amount" 
-                secureTextEntry onChangeText={(text) => setAmount(text)}
-            />
-            <Button title = "Send" onPress={handleLogin}/>
-            <View style = {styles.signupText}>
-                <Text>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('signup')} style = {{marginHorizontal: 5}}>
-                    <Text style = {{color: 'blue'}}>Sign Up Here</Text>
-                </TouchableOpacity>
-            </View>
+        <View style={styles.container}>
+            
+            <TouchableOpacity 
+                onPress={() => navigation.navigate('Home')} style = {styles.backButton}>
+                <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>{'\u21A9'}</Text>
+            </TouchableOpacity>
+            <View style = {styles.circle}>
+                <Text style = {styles.letter}>{user?.username[0]}</Text> 
+            </View> 
+            <Text style={styles.greeting}>Hello @{user?.username}</Text>
+            
+            <TouchableOpacity
+                onPress={() => {
+                    signOut();
+                }}
+                style={styles.button}
+            >
+                <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
+            </TouchableOpacity>
         </View>
-        
-    )
+    );
 }
 
 export default App;
 
 const styles = StyleSheet.create({
+    letter: {
+        marginTop: 20, 
+        textAlign: 'center', 
+        color: '#fff', 
+        fontSize: 50,
+        textTransform: 'capitalize'
+    },
+    circle: {
+        display: 'flex',
+        marginTop: 30,
+        alignSelf: 'center',
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 1,
+        backgroundColor: '#300796'
+    },
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-
+        marginTop: 80,
+        padding: 10
     },
-    signupText:{
-        flexDirection: 'row',
-        marginVertical: 20
+    greeting: {
+        fontWeight: "bold",
+        marginTop: 30,
+        marginBottom: 100,
+        fontFamily: 'WorkSans_600SemiBold',
+        textAlign: 'center',
+        fontSize: 30
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold'
+    button: {
+        borderWidth: 1,
+        borderRadius: 30,
+        marginTop: 10,
+        marginBottom: 10,
+        padding: 15,
+        backgroundColor: '#300796'
+    },
+    backButton: {
+        borderWidth: 1,
+        borderRadius: 30,
+        marginTop: 10,
+        marginBottom: 100,
+        padding: 15,
+        backgroundColor: '#300796',
+        width: 50
     }
 })
