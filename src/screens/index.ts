@@ -4,5 +4,5 @@ import Home from './home'
 import Profile from './profile'
 import Requests from './requests'
 
-export {SignUp, Login, Home, Profile}
+export {SignUp, Login, Home, Profile, Requests}
 
