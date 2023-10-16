@@ -13,12 +13,14 @@ const App: FC = ({navigation}) => {
     
     return (
         <View style={styles.container}>
-
+            
             <TouchableOpacity 
                 onPress={() => navigation.navigate('Home')} style = {styles.backButton}>
                 <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>{'\u21A9'}</Text>
             </TouchableOpacity>
-
+            <View style = {styles.circle}>
+                <Text style = {styles.letter}>{user?.username[0]}</Text> 
+            </View> 
             <Text style={styles.greeting}>Hello @{user?.username}</Text>
             
             <TouchableOpacity
@@ -36,12 +38,30 @@ const App: FC = ({navigation}) => {
 export default App;
 
 const styles = StyleSheet.create({
+    letter: {
+        marginTop: 20, 
+        textAlign: 'center', 
+        color: '#fff', 
+        fontSize: 50,
+        textTransform: 'capitalize'
+    },
+    circle: {
+        display: 'flex',
+        marginTop: 30,
+        alignSelf: 'center',
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 1,
+        backgroundColor: '#300796'
+    },
     container: {
         marginTop: 80,
         padding: 10
     },
     greeting: {
         fontWeight: "bold",
+        marginTop: 30,
         marginBottom: 100,
         fontFamily: 'WorkSans_600SemiBold',
         textAlign: 'center',
