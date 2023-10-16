@@ -103,6 +103,13 @@ const App: FC = ({navigation}) => {
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity
+                    onPress={handleAddRequest}
+                    style={styles.moneyButton}
+                >
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>$</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );
@@ -167,5 +174,14 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 2,
         width: '100%',
-    }
+    },
+    moneyButton: {
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 100,
+        backgroundColor: '#300796'
+    },
 })
