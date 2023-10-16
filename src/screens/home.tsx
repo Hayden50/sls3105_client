@@ -32,6 +32,9 @@ const App: FC = ({navigation}) => {
     }
     return (
         <View style={styles.container}>
+             <View style = {styles.circle}>
+                <Text style = {styles.letter}>{user?.username[0]}</Text> 
+            </View> 
             <Text style={styles.greeting}>Hello @{user?.username}</Text>
             <SearchBar 
                 onSearchClick={handleSearchClick}
@@ -63,18 +66,27 @@ const App: FC = ({navigation}) => {
                         }
                     </View>
                 </View>
-                <TouchableOpacity
-                    onPress={handleRemoveFriend}
-                    style={styles.button}
-                >
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
-                </TouchableOpacity>
+                <View style = {styles.buttonContainer}>
+                    <TouchableOpacity
+                        onPress={handleAddFriend}
+                        style={styles.button}
+                    >
+                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Add friend</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={handleAddFriend}
-                    style={styles.button}
-                >
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Add friend</Text>
+                    <TouchableOpacity
+                        onPress={handleRemoveFriend}
+                        style={styles.button}
+                    >
+                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style = {{marginTop: 50}}></View>
+
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -86,11 +98,6 @@ const App: FC = ({navigation}) => {
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
-                </TouchableOpacity>
-
             </View>
         </View>
     );
@@ -99,12 +106,34 @@ const App: FC = ({navigation}) => {
 export default App;
 
 const styles = StyleSheet.create({
+    letter: {
+        marginTop: 5, 
+        textAlign: 'center', 
+        color: '#fff', 
+        fontSize: 50,
+        textTransform: 'capitalize'
+    },
+    circle: {
+        display: 'flex',
+        marginTop: 30,
+        alignSelf: 'center',
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        borderWidth: 1,
+        backgroundColor: '#300796'
+    },
     container: {
         marginTop: 60,
         padding: 10
     },
     localContainer: {
         alignItems: 'center',
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     greeting: {
         fontWeight: "bold",
@@ -119,7 +148,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         padding: 15,
-        backgroundColor: '#300796'
+        backgroundColor: '#300796',
+        marginLeft: 30,
+        marginRight: 30
     },
     friendsContainer: {
         display: "flex",
