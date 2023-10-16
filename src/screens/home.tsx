@@ -6,7 +6,7 @@ import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 
 
-const App: FC = () => {
+const App: FC = ({navigation}) => {
 
     const { user } = useUser();
     const addFriends = useMutation("addFriends");
@@ -86,6 +86,11 @@ const App: FC = () => {
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );
@@ -95,7 +100,7 @@ export default App;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 80,
+        marginTop: 60,
         padding: 10
     },
     localContainer: {
