@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    width : 300
+    width : 300,
   },
   resultList: {
     maxHeight: 150,

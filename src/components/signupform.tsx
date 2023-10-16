@@ -42,14 +42,16 @@ export const SignUpForm: FC<Props> = ({ navigation, callback, emailCallback}) =>
     return (
         <View style = {styles.container}>
             <Text style={styles.title}>Create Account</Text>
-            <Input placeholder="Handle" onChangeText={setHandle}/>
-            <Input placeholder="Email" onChangeText={setEmail}/>
-            <Input placeholder="Password" secureTextEntry onChangeText={setPassword}/>
+            {/* <View style = {styles.text}> */}
+                <Input placeholder="Handle" onChangeText={setHandle}/>
+                <Input placeholder="Email" onChangeText={setEmail}/>
+                <Input placeholder="Password" secureTextEntry onChangeText={setPassword}/>
+            {/* </View> */}
             <Button title = "Sign Up" onPress={signupHandler}/>
             <View style = {styles.loginText}>
-                <Text>Already have an account?</Text>
+                <Text style = {{fontFamily: 'WorkSans_400Regular'}}>Already have an account?</Text>
                 <TouchableOpacity onPress={() => {navigation.navigate('login')}} style = {{marginHorizontal: 5}}>
-                    <Text style = {{color: 'blue'}}>Login Here</Text>
+                    <Text style = {{color: 'blue', fontFamily: 'WorkSans_400Regular'}}>Login Here</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -62,14 +64,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        fontFamily: 'WorkSans_400Regular'
     },
     loginText:{
         flexDirection: 'row',
-        marginVertical: 20
+        marginVertical: 20,
+        fontFamily: 'WorkSans_600SemiBold'
     },
     title: {
-        fontSize: 30,
+        fontSize: 40,
         fontWeight: 'bold',
+        fontFamily: 'WorkSans_600SemiBold'
+    },
+    text: {
+        fontFamily: 'WorkSans_400regular'
     }
 })
