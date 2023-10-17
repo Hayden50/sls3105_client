@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import {createStackNavigator} from '@react-navigation/stack'
-import {Home, Requests} from '../screens'
+import {Home} from '../screens'
 import {Profile} from '../screens'
+import {Requests} from '../screens'
 import { Transactions } from "../screens";
 
 const {Navigator, Screen} = createStackNavigator();
