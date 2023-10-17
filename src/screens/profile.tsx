@@ -8,18 +8,15 @@ import {
   FlatList,
 } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
+import { useQuery } from "../../convex/_generated/react";
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
   const { signOut } = useClerk();
 
-  // Define sample data for the FlatList
-  const requestData = [
-    { id: "1", description: "Transaction 1" },
-    { id: "2", description: "Transaction 2" },
-    { id: "3", description: "Transaction 3" },
-    // Add more items as needed
-  ];
+  const requestData = (useQuery("listRequests") || [])
+    .filter((req) => req.user_username == user?.username)
+    .reverse();
 
   return (
     <View style={styles.container}>
@@ -34,16 +31,17 @@ const App: FC = ({ navigation }) => {
       <View style={styles.circle}>
         <Text style={styles.letter}>{user?.username[0]}</Text>
       </View>
-      <Text style={styles.greeting}>Hello @{user?.username}</Text>
+      <Text style={styles.greeting}>Hello @{user?.username}!</Text>
       <Text style={styles.balance}>$50</Text>
 
       <FlatList
         style={styles.requestList}
         data={requestData}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.requestItem}>
-            <Text>{item.description}</Text>
+            <Text style={styles.requestItemText}>{item.friend_username}</Text>
+            <Text style={styles.requestItemAmount}>${item.amount}</Text>
           </View>
         )}
       />
@@ -126,14 +124,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#300796",
     width: 50,
   },
+  requestList: {
+    height: 300,
+  },
   requestItem: {
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     margin: 5,
     backgroundColor: "#e0e0e0",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  requestList: {
-    height: 300,
+  requestItemText: {
+    fontSize: 14,
+    fontStyle: "italic",
+  },
+  requestItemAmount: {
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "right",
   },
 });
