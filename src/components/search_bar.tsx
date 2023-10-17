@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) 
       <TextInput
         style={styles.input}
         autoCapitalize='none'
-        placeholder="Search for friends..."
+        placeholder="Friends name..."
         onChangeText={handleSearchChange}
         value={searchValue}
         onPressIn={handleSearchClick}
