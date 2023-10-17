@@ -10,10 +10,9 @@ const App: FC = ({navigation}) => {
 
     const { user } = useUser();
     const { signOut } = useClerk();
-    
+
     return (
         <View style={styles.container}>
-            
             <TouchableOpacity 
                 onPress={() => navigation.navigate('Home')} style = {styles.backButton}>
                 <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>{'\u21A9'}</Text>

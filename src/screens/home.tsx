@@ -110,11 +110,6 @@ const App: FC = ({navigation}) => {
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Requests')}
                     style={styles.moneyButton}>
