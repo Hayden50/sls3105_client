@@ -42,13 +42,6 @@ const App: FC = ({navigation}) => {
         deleteFriend({user_username: user?.username, friend_username: friendUser})
     }
 
-    const handleAddRequest = () => {
-        addRequest({user_username: user?.username, friend_username: searchTerm, amount: searchTerm}) //will change amount later
-    }
-
-    const handleDeleteRequest = () => {
-        addRequest({user_username: user?.username, friend_username: searchTerm, request_id: searchTerm, accepted: Boolean}) //will change request_id later
-    }
 
     return (
         <View style={styles.container}>
@@ -104,6 +97,11 @@ const App: FC = ({navigation}) => {
                 </View>
 
                 <View style = {{marginTop: 10}}></View>
+
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Requests')}
