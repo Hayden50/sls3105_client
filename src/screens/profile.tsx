@@ -25,20 +25,20 @@ const App: FC = ({ navigation }) => {
       <Text style={styles.greeting}>Hello @{user?.username}</Text>
       <Text style={styles.balance}>$50</Text>
 
-      <TouchableOpacity
-        onPress={() => {
-          signOut();
-        }}
-        style={styles.button}
-      >
-        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-          Log out
-        </Text>
+        <TouchableOpacity 
+            onPress={() => navigation.navigate('Transactions')} style = {styles.button}>
+            <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Transaction History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => {
+                signOut();
+            }}
+            style={styles.button}
+            >
+            <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+                Log out
+            </Text>
       </TouchableOpacity>
-            <TouchableOpacity 
-                    onPress={() => navigation.navigate('Transactions')} style = {styles.button}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Transaction History</Text>
-            </TouchableOpacity>
     </View>
   );
 };
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 15,
     backgroundColor: "#300796",
+    alignSelf: 'center'
   },
   backButton: {
     borderWidth: 1,
