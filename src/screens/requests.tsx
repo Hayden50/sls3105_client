@@ -67,6 +67,11 @@ const App: FC = ({navigation}) => {
                     </View>
                 </View>
                 <View style = {{marginTop: 50}}></View>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Requests')}
+                    style={styles.moneyButton}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Send</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -157,8 +162,8 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     moneyButton: {
-        width: 50,
-        height: 50,
+        width: 75,
+        height: 75,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
