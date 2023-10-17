@@ -94,7 +94,7 @@ const App: FC = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style = {{marginTop: 50}}></View>
+                <View style = {{marginTop: 10}}></View>
 
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('Profile')} style = {styles.button}>
@@ -145,6 +145,8 @@ const styles = StyleSheet.create({
         padding: 10
     },
     localContainer: {
+        // flex: 1,
+        // justifyContent: 'center',
         alignItems: 'center',
     },
     buttonContainer: {

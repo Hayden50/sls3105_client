@@ -35,6 +35,10 @@ const App: FC = ({ navigation }) => {
           Log out
         </Text>
       </TouchableOpacity>
+            <TouchableOpacity 
+                    onPress={() => navigation.navigate('Transactions')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Transaction History</Text>
+            </TouchableOpacity>
     </View>
   );
 };
