@@ -1,5 +1,25 @@
 import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import TransactionComponent from "../components/transaction";
+
+const transactions = [
+    {
+      id: "1",
+      amount: 100,
+      sender: "Hayden1000",
+      receiver: "therealcob",
+      date: new Date(),
+      change: "positive",
+    },
+    {
+      id: "2",
+      amount: 200,
+      sender: "therealcob",
+      receiver: "gabbylowy",
+      date: new Date(),
+      change: "negative",
+    },
+  ];
 
 const App: FC = ({ navigation }) => {
   return (
@@ -13,6 +33,12 @@ const App: FC = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
         <Text style={styles.title}>Transaction History</Text>
+
+        <FlatList
+        data={transactions}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <TransactionComponent transaction={item} />}
+      />
     </View>
     
   );
