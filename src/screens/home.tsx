@@ -1,5 +1,5 @@
-import { useClerk, useSignIn } from "@clerk/clerk-expo";
-import React, { FC, useEffect, useState } from "react";
+import { useClerk } from "@clerk/clerk-expo";
+import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
