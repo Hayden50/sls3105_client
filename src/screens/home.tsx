@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
         padding: 10
     },
     localContainer: {
+        // flex: 1,
+        // justifyContent: 'center',
         alignItems: 'center',
     },
     greeting: {
