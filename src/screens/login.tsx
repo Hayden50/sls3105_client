@@ -1,8 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Input, Button } from "../components";
 import { useSignIn } from "@clerk/clerk-expo";
-import { StackScreenProps } from "@react-navigation/stack";
 
 const App = ({navigation}) => {
     const { signIn, setSession, isLoaded } = useSignIn();
