@@ -94,7 +94,7 @@ const App: FC = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style = {{marginTop: 50}}></View>
+                <View style = {{marginTop: 10}}></View>
 
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('Profile')} style = {styles.button}>
@@ -108,11 +108,6 @@ const App: FC = ({navigation}) => {
                     style={styles.button}
                 >
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
