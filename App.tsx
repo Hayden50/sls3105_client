@@ -1,10 +1,8 @@
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
-import { StyleSheet, Text, View } from 'react-native';
-import Friends from './lib/components/Friends';
+import { StyleSheet } from 'react-native';
 import 'react-native-get-random-values';
-import { SignedIn, SignedOut, ClerkProvider } from '@clerk/clerk-expo';
+import { ClerkProvider } from '@clerk/clerk-expo';
 import * as SecureStore from "expo-secure-store";
-import Login from './lib/components/Login';
 import MainNav from './src/navigation/mainNavigation';
 import { useFonts, WorkSans_400Regular, WorkSans_600SemiBold} from '@expo-google-fonts/work-sans';
 
