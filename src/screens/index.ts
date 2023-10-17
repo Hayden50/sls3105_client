@@ -5,5 +5,5 @@ import Profile from './profile'
 import Requests from './requests'
 import Transactions from './transactions'
 
-export {SignUp, Login, Home, Profile, Transactions}
+export {SignUp, Login, Home, Profile, Requests, Transactions}
 
