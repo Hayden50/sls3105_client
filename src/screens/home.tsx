@@ -16,6 +16,9 @@ const App: FC = ({navigation}) => {
     const [searchTerm, setSearchTerm] = useState("");
     const { signOut } = useClerk();
 
+    const addRequest = useMutation("addRequest");
+    const deleteRequest = useMutation("deleteRequest");
+
     const filtered_friends = friends.filter((user) => user.includes(searchTerm))
     const filtered_users = users.filter((user) => user.includes(searchTerm) && !friends.includes(user))
 
@@ -30,8 +33,20 @@ const App: FC = ({navigation}) => {
     const handleRemoveFriend = () => {
         deleteFriend({ user_username: user?.username, friend_username: searchTerm })
     }
+
+    const handleAddRequest = () => {
+        addRequest({user_username: user?.username, friend_username: searchTerm, amount: searchTerm}) //will change amount later
+    }
+
+    const handleDeleteRequest = () => {
+        addRequest({user_username: user?.username, friend_username: searchTerm, request_id: searchTerm, accepted: Boolean}) //will change request_id later
+    }
+
     return (
         <View style={styles.container}>
+             <View style = {styles.circle}>
+                <Text style = {styles.letter}>{user?.username[0]}</Text> 
+            </View> 
             <Text style={styles.greeting}>Hello @{user?.username}</Text>
             <SearchBar 
                 onSearchClick={handleSearchClick}
@@ -63,18 +78,27 @@ const App: FC = ({navigation}) => {
                         }
                     </View>
                 </View>
-                <TouchableOpacity
-                    onPress={handleRemoveFriend}
-                    style={styles.button}
-                >
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
-                </TouchableOpacity>
+                <View style = {styles.buttonContainer}>
+                    <TouchableOpacity
+                        onPress={handleAddFriend}
+                        style={styles.button}
+                    >
+                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Add friend</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={handleAddFriend}
-                    style={styles.button}
-                >
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Add friend</Text>
+                    <TouchableOpacity
+                        onPress={handleRemoveFriend}
+                        style={styles.button}
+                    >
+                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style = {{marginTop: 50}}></View>
+
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -91,6 +115,12 @@ const App: FC = ({navigation}) => {
                     <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity
+                    onPress={handleAddRequest}
+                    style={styles.moneyButton}
+                >
+                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>$</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -99,6 +129,23 @@ const App: FC = ({navigation}) => {
 export default App;
 
 const styles = StyleSheet.create({
+    letter: {
+        marginTop: 5, 
+        textAlign: 'center', 
+        color: '#fff', 
+        fontSize: 50,
+        textTransform: 'capitalize'
+    },
+    circle: {
+        display: 'flex',
+        marginTop: 30,
+        alignSelf: 'center',
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        borderWidth: 1,
+        backgroundColor: '#300796'
+    },
     container: {
         marginTop: 60,
         padding: 10
@@ -107,6 +154,11 @@ const styles = StyleSheet.create({
         // flex: 1,
         // justifyContent: 'center',
         alignItems: 'center',
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     greeting: {
         fontWeight: "bold",
@@ -121,7 +173,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         padding: 15,
-        backgroundColor: '#300796'
+        backgroundColor: '#300796',
+        marginLeft: 30,
+        marginRight: 30
     },
     friendsContainer: {
         display: "flex",
@@ -157,5 +211,14 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 2,
         width: '100%',
-    }
+    },
+    moneyButton: {
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 100,
+        backgroundColor: '#300796'
+    },
 })
