@@ -34,6 +34,10 @@ const App: FC = ({navigation}) => {
         deleteFriend({ user_username: user?.username, friend_username: searchTerm })
     }
 
+    const handleAddButton = (friendUser: string) => {
+        addFriends({user_username: user?.username, friend_username: friendUser})
+    }
+
     const handleAddRequest = () => {
         addRequest({user_username: user?.username, friend_username: searchTerm, amount: searchTerm}) //will change amount later
     }
@@ -58,9 +62,9 @@ const App: FC = ({navigation}) => {
                         <Text style={styles.friendsTitle}>Friends</Text>
                         {friends && filtered_friends.slice(0, 10).map((user) => {
                             return (
-                                <View style={styles.friendsRow} key={user}>
+                                <TouchableOpacity style={styles.friendsRow} key={user}>
                                     <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
-                                </View>
+                                </TouchableOpacity>
                             )
                             })
                         }
@@ -70,9 +74,9 @@ const App: FC = ({navigation}) => {
                         <Text style={styles.friendsTitle}>All Users</Text>
                         {filtered_users.length > 0 ? filtered_users.slice(0, 3).map((user) => {
                             return (
-                                <View style={styles.friendsRow} key={user}>
+                                <TouchableOpacity onPress={() => handleAddButton(user)} style={styles.friendsRow} key={user}>
                                     <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
-                                </View>
+                                </TouchableOpacity>
                             )
                             }) : <Text style = {{fontFamily: 'WorkSans_400Regular'}}>No users matching search criteria</Text>
                         }
