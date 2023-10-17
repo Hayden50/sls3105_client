@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
@@ -90,11 +90,13 @@ const App: FC = ({ navigation }) => {
             )}
           </View>
 
-          <View style={styles.container}>
-            <Input
-              placeholder="Amount"
-              onChangeText={(amount) => setReqAmount(Number(amount))}
-            />
+          <View style={styles.inputAmount}>
+          <TextInput
+            style={styles.input}
+            autoCapitalize='none'
+            placeholder="Amount"
+            //onClick
+          />
           </View>
         </View>
 
@@ -122,6 +124,18 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 50,
     textTransform: "capitalize",
+  },
+  inputAmount: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10
+  },
+  input: {
+    height: 40,
+    fontFamily: 'WorkSans_400Regular'
   },
   circle: {
     display: "flex",
