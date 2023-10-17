@@ -15,7 +15,6 @@ export const SignUpForm: FC<Props> = ({ navigation, callback, emailCallback}) =>
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
     const {signUp, setSession, isLoaded} = useSignUp()
-    const [verifyingEmail, setVerifyingEmail] = useState(false)
 
     const signupHandler = async () => {
         if (!handle || !email || !password || !isLoaded) {
