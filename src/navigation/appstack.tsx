@@ -4,6 +4,7 @@ import {Home} from '../screens'
 import {Profile} from '../screens'
 import {Requests} from '../screens'
 import { Transactions } from "../screens";
+import {RequestsSuccess} from '../screens'
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -14,6 +15,7 @@ const AppStack : FC = () => {
             <Screen name = "Profile" component={Profile}/>
             <Screen name = "Transactions" component={Transactions}/>
             <Screen name = "Requests" component={Requests}/>
+            <Screen name = "RequestsSuccess" component={RequestsSuccess}/>
         </Navigator>
     )
 }
