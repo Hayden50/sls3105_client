@@ -8,6 +8,46 @@
    b. Run ``npx convex dev`` to start the backend locally
 4. Navigate to the generated QR code to test project
 
+# Release Notes
+## Version 0.3.0
+### New Features
+* Created request/send funds (money) page
+* Created transactions history page
+* Created profile page
+* Revised search bar to enable touchscreen
+
+### Bug Fixes
+* Fixed changes in home and profile page based on smart phone version
+* Fixed incorrect dependencies (imports) and node modules in code
+
+### Known Issues
+* Not able to send real money in app
+* Unavailable node modules that are needed to revise future app UI
+
+---
+
+## Version 0.2.0
+### New Features
+* Created add / remove friend functionality
+* Developed friends list
+* Updated UI to closer follow client guidelines and Figma prototype
+
+### Bug Fixes
+N/A
+
+---
+
+## Version 0.1.0
+### New Features
+* create login including username, password, and email
+* sign in to app using username and password
+
+### Bug Fixes
+N/A
+
+---
+
+
 ## 4/16/2023
 We chose to start with the adding friends feature as it is the first step in peer-to-peer payment.  First, the user must create an account and connect with another, then they can send/request a payment.  By requiring users to create an account and using email verification, we can ensure accounts are legitimate. This allows for users to be able to send payments stress-free as we validate users upon creation of their account. There is a search bar at the top of the screen for which users can search accounts. Then, they can add/remove friends quickly by a press of a button.
 
