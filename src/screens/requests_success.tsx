@@ -4,7 +4,6 @@ import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import { Input } from "../components";
-import { RequestsSuccess } from ".";
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -38,14 +37,6 @@ const App: FC = ({ navigation }) => {
       amount: reqAmount,
     });
   };
-  const handleSendRequest = () => {
-    // TODO: implement some sort of response on failure
-    addRequest({
-      user_username: user?.username,
-      friend_username: searchTerm,
-      amount: reqAmount,
-    });
-  };
 
   return (
     <View style={styles.container}>
@@ -57,74 +48,8 @@ const App: FC = ({ navigation }) => {
           {"\u21A9"}
         </Text>
       </TouchableOpacity>
-      <Text style={styles.greeting}>Request/Send Funds</Text>
-      <SearchBar
-        onSearchClick={handleSearchClick}
-        onSearchChange={setSearchTerm}
-      />
-      <View style={styles.localContainer}>
-        <View style={styles.friendsContainer}>
-          {filtered_friends.length > 0 && (
-            <View style={styles.friendsList}>
-              <Text style={styles.friendsTitle}>Friends</Text>
-              {friends &&
-                filtered_friends.slice(0, 10).map((user) => {
-                  return (
-                    <View style={styles.friendsRow} key={user}>
-                      <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                        @{user}
-                      </Text>
-                    </View>
-                  );
-                })}
-            </View>
-          )}
+      <Text style={styles.greeting}>Action Successfully Completed</Text>
 
-          <View style={styles.usersList}>
-            <Text style={styles.friendsTitle}>All Users</Text>
-            {filtered_users.length > 0 ? (
-              filtered_users.slice(0, 3).map((user) => {
-                return (
-                  <View style={styles.friendsRow} key={user}>
-                    <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                      @{user}
-                    </Text>
-                  </View>
-                );
-              })
-            ) : (
-              <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                No users matching search criteria
-              </Text>
-            )}
-          </View>
-
-          <View style={styles.inputAmount}>
-          <TextInput
-            style={styles.input}
-            autoCapitalize='none'
-            placeholder="Amount"
-            //onClick
-          />
-          </View>
-        </View>
-        <View style = {styles.buttonContainer}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('RequestsSuccess')}
-                        style={styles.button}
-                    >
-                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Send</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('RequestsSuccess')}
-                        style={styles.button}
-                    >
-                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Request</Text>
-                    </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 10 }}></View>
-      </View>
     </View>
   );
 };
