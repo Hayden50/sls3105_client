@@ -7,7 +7,7 @@ export default mutation(async ({ db }, { username, email, id }) => {
         .first();
   
     if (!new_user) {
-        await db.insert("users", { username, email, id });
+        await db.insert("users", { balance: 0, username, email, id });
         return new_user;
     }
     return new_user;
