@@ -1,11 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import { Input } from "../components";
-import { RecurPayments, RequestsSuccess } from ".";
-import SimpleMenu from "../components/popUpMenu";
+import Dropdown from "../components/dropdown";
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -41,80 +40,72 @@ const App: FC = ({ navigation }) => {
   };
   const handleSendRequest = () => {
     // TODO: implement some sort of response on failure
-    //make it so the username entered in the payments page is reflected in the recurring payments page
     addRequest({
       user_username: user?.username,
       friend_username: searchTerm,
       amount: reqAmount,
     });
   };
+  const [selected, setSelected] = useState(undefined);
+  const data = [
+    { label: 'Day(s)', value: '1' },
+    { label: 'Week(s)', value: '2' },
+    { label: 'Month(s)', value: '3' },
+    { label: 'Year(s)', value: '4' },
+  ];
 
   return (
     <View style={styles.container}>
-      <SearchBar
-        onSearchClick={handleSearchClick}
-        onSearchChange={setSearchTerm}
-      />
-      <View style={styles.localContainer}>
-        <View style={styles.friendsContainer}>
-          {filtered_friends.length > 0 && (
-            <View style={styles.friendsList}>
-              <Text style={styles.friendsTitle}>Friends</Text>
-              {friends &&
-                filtered_friends.slice(0, 10).map((user) => {
-                  return (
-                    <View style={styles.friendsRow} key={user}>
-                      <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                        @{user}
-                      </Text>
-                    </View>
-                  );
-                })}
-            </View>
-          )}
-
-          <View style={styles.usersList}>
-            <Text style={styles.friendsTitle}>All Users</Text>
-            {filtered_users.length > 0 ? (
-              filtered_users.slice(0, 3).map((user) => {
-                return (
-                  <View style={styles.friendsRow} key={user}>
-                    <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                      @{user}
-                    </Text>
-                  </View>
-                );
-              })
-            ) : (
-              <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                No users matching search criteria
-              </Text>
-            )}
-          </View>
-
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Requests")}
+        style={styles.backButton}
+      >
+        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+          {"\u21A9"}
+        </Text>
+      </TouchableOpacity>
+      <Text style={styles.greeting}>Recurring Payments</Text>
           <View style={styles.inputAmount}>
           <TextInput
             style={styles.input}
             autoCapitalize='none'
-            placeholder="Amount"
+            placeholder="Username"//carry username from requests page to this page
             //onClick
           />
           </View>
-        </View>
-        <View style = {styles.buttonContainer}>
-                    <View style={styles.menuContainer}>
-                      <SimpleMenu />
-                    </View>
+          <View style={styles.inputAmount}>
+          <TextInput
+            style={styles.input}
+            autoCapitalize='none'
+            placeholder="Amount"//carry amount from requests page to this page
+            //onClick
+          />
+          </View> 
+          <View style={{ marginTop: 50 }}></View>
+          <Text>Payment sent every...</Text>
+          <View style={{ marginTop: 10 }}></View>
+          <View style={styles.inputAmount}>
+          <TextInput
+            style={styles.input}
+            autoCapitalize='none'
+            placeholder=""//carry amount from requests page to this page
+            //onClick
+          />
+          </View> 
+          <View style={styles.container}>
+            {!!selected}
+            <Dropdown label="Time" data={data} onSelect={setSelected} />
+          </View>
 
+        <View style = {styles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("RecurPayments")}
+                        onPress={() => navigation.navigate('RequestsSuccess')}
                         style={styles.button}
                     >
-                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Request</Text>
+                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Send</Text>
                     </TouchableOpacity>
         </View>
         <View style={{ marginTop: 10 }}></View>
-      </View>
     </View>
   );
 };
@@ -122,6 +113,13 @@ const App: FC = ({ navigation }) => {
 export default App;
 
 const styles = StyleSheet.create({
+  dropdownContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
   menuContainer: {
     flex: 1,
   },
@@ -163,6 +161,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     display: "flex",
+    alignSelf: "center",
     justifyContent: "space-between",
     flexDirection: "row",
   },
