@@ -1,17 +1,17 @@
 import React, { FC, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AppStack from "./appstack";
+import {MainStackNavigator} from "./appstack";
 import AuthStack from "./authstack";
 import { SignedIn, SignedOut } from "@clerk/clerk-expo";
-import { SignInButton } from "@clerk/clerk-react"
-
-const MainNav: FC = () => {
+import { SignInButton } from "@clerk/clerk-react";
+import BottomTabNavigator from "./bottomtab";
+const MainNav = () => {
     const [user, setUser] = useState(null);
 
     return (
         <NavigationContainer>
             <SignedIn >
-                <AppStack />
+                <BottomTabNavigator />
             </SignedIn >
             <SignedOut>
                 <AuthStack />

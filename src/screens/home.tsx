@@ -16,9 +16,6 @@ const App: FC = ({navigation}) => {
     const [searchTerm, setSearchTerm] = useState("");
     const { signOut } = useClerk();
 
-    const addRequest = useMutation("addRequest");
-    const deleteRequest = useMutation("deleteRequest");
-
     const filtered_friends = friends.filter((user) => user.includes(searchTerm))
     const filtered_users = users.filter((user) => user.includes(searchTerm) && !friends.includes(user))
 
@@ -97,26 +94,6 @@ const App: FC = ({navigation}) => {
                 </View>
 
                 <View style = {{marginTop: 10}}></View>
-
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate('Profile')} style = {styles.button}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Profile Page</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Requests')}
-                    style={styles.moneyButton}>
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>$</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => {
-                        signOut();
-                    }}
-                    style={styles.button}
-                >
-                    <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
-                </TouchableOpacity>
             </View>
         </View>
     );

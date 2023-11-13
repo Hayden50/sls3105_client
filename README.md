@@ -5,10 +5,24 @@
 2. Run ``npm i`` to install dependencies
 3. You need two terminals open to run the project.
    a. Run ``npx expo start`` to generate a QR code to run the app locally
-   b. Run ``npx convex dev`` to start the backend locally
+   b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
 4. Navigate to the generated QR code to test project
 
 # Release Notes
+## Version 0.4.0
+### New Features
+* Bottom-tab navigation
+* Recurring payments page
+* Accurate account balance display in profile page
+### Bug Fixes
+* Fixed dependency error for imported APIs
+
+### Known Issues
+* Not able to send real money in app
+* Send button in requests page does not change after option is selected; the popup menu is still open when navigating to page again
+
+---
+
 ## Version 0.3.0
 ### New Features
 * Created request/send funds (money) page
