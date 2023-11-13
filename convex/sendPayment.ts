@@ -17,6 +17,11 @@ export default mutation(async ({ db }, {userUsername, friendUsername, payment}) 
         return false;
     }
 
+    if (paymentVal <= 0) {
+        console.log("Payment needs to be a valid positive number");
+        return false;
+    }
+
     if (!user || !friend) {
         console.log("User or friend not found");
         return false;
