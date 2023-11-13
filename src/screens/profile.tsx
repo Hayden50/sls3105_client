@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#300796",
   },
   container: {
-    marginTop: 80,
+    display: "flex",
+    marginTop: 35,
     padding: 10,
   },
   greeting: {
