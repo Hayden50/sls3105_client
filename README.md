@@ -5,7 +5,7 @@
 2. Run ``npm i`` to install dependencies
 3. You need two terminals open to run the project.
    a. Run ``npx expo start`` to generate a QR code to run the app locally
-   b. Run ``npx convex dev`` to start the backend locally
+   b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
 4. Navigate to the generated QR code to test project
 
 # Release Notes
