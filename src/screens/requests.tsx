@@ -52,7 +52,7 @@ const App: FC = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 100 }}></View>
-      <Text style={styles.greeting}>Recurring Payments</Text>
+      <Text style={styles.greeting}>Send and Request Payments</Text>
 
       <SearchBar
         onSearchClick={handleSearchClick}
