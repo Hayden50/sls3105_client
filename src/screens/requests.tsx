@@ -1,10 +1,14 @@
 import React, { FC, useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
-import { Input } from "../components";
-import { RecurPayments, RequestsSuccess } from ".";
 import SimpleMenu from "../components/popUpMenu";
 
 const App: FC = ({ navigation }) => {
@@ -20,10 +24,14 @@ const App: FC = ({ navigation }) => {
 
   const addRequest = useMutation("addRequest");
   const [searchTerm, setSearchTerm] = useState("");
-  const [reqAmount, setReqAmount] = useState(0);
+  const [reqAmount, setReqAmount] = useState("");
 
   const handleSearchClick = () => {
     console.log("Clicked Search Bar");
+  };
+
+  const handleTextChange = (num: string) => {
+    setReqAmount(num);
   };
 
   const filtered_friends = friends.filter((user) => user.includes(searchTerm));
@@ -93,25 +101,32 @@ const App: FC = ({ navigation }) => {
           </View>
 
           <View style={styles.inputAmount}>
-          <TextInput
-            style={styles.input}
-            autoCapitalize='none'
-            placeholder="Amount"
-            //onClick
-          />
+            <TextInput
+              style={styles.input}
+              autoCapitalize="none"
+              placeholder="Enter Amount"
+              onChangeText={handleTextChange}
+              value={reqAmount}
+            />
           </View>
         </View>
-        <View style = {styles.buttonContainer}>
-                    <View style={styles.menuContainer}>
-                      <SimpleMenu />
-                    </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.menuContainer}>
+            <SimpleMenu
+              paymentValue={reqAmount}
+              userUsername={user?.username}
+              friendUsername={searchTerm}
+            />
+          </View>
 
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("RecurPayments")}
-                        style={styles.button}
-                    >
-                        <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Request</Text>
-                    </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("RecurPayments")}
+            style={styles.button}
+          >
+            <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+              Request
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={{ marginTop: 10 }}></View>
       </View>
@@ -133,16 +148,16 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   inputAmount: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 10,
     borderRadius: 8,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
-    marginBottom: 10
+    marginBottom: 10,
   },
   input: {
     height: 40,
-    fontFamily: 'WorkSans_400Regular'
+    fontFamily: "WorkSans_400Regular",
   },
   circle: {
     display: "flex",

@@ -20,7 +20,7 @@ import type * as listFriends from "../listFriends";
 import type * as listRequests from "../listRequests";
 import type * as listUsers from "../listUsers";
 import type * as searchFriends from "../searchFriends";
-import type * as updateBalance from "../updateBalance";
+import type * as sendPayment from "../sendPayment";
 
 /**
  * A type describing your app's public Convex API.
@@ -42,5 +42,5 @@ export type API = ApiFromModules<{
   listRequests: typeof listRequests;
   listUsers: typeof listUsers;
   searchFriends: typeof searchFriends;
-  updateBalance: typeof updateBalance;
+  sendPayment: typeof sendPayment;
 }>;
