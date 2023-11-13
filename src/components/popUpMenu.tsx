@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import React, {FC} from "react";
+import React, {FC, useRef, useState} from "react";
 import {
   Menu,
   MenuProvider,
@@ -11,7 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 
 function SimpleMenu() {
   const navigation = useNavigation();
-
+  const popup = useRef();
+  const[visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(undefined);
  return (
   <MenuProvider style={styles.container}>
   <Menu>
