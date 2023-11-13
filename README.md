@@ -14,12 +14,14 @@
 * Bottom-tab navigation
 * Recurring payments page
 * Accurate account balance display in profile page
+
 ### Bug Fixes
 * Fixed dependency error for imported APIs
 
 ### Known Issues
 * Not able to send real money in app
 * Send button in requests page does not change after option is selected; the popup menu is still open when navigating to page again
+* Screen formatting is not applicable to all phone types (different screen lengths and widths)
 
 ---
 
