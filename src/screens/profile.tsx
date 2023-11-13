@@ -18,6 +18,8 @@ const App: FC = ({ navigation }) => {
     .filter((req) => req.user_username == user?.username)
     .reverse();
 
+  const userFromConvex = useQuery("getUser", { username: "gabby" }) || null;
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -32,7 +34,7 @@ const App: FC = ({ navigation }) => {
         <Text style={styles.letter}>{user?.username[0]}</Text>
       </View>
       <Text style={styles.greeting}>Hello @{user?.username}!</Text>
-      <Text style={styles.balance}>$50</Text>
+      <Text style={styles.balance}>${userFromConvex?.balance || 0}</Text>
 
       <FlatList
         style={styles.requestList}
