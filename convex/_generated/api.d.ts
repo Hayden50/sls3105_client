@@ -18,6 +18,7 @@ import type * as deleteRequest from "../deleteRequest";
 import type * as getUser from "../getUser";
 import type * as listFriends from "../listFriends";
 import type * as listRequests from "../listRequests";
+import type * as listTransactions from "../listTransactions";
 import type * as listUsers from "../listUsers";
 import type * as searchFriends from "../searchFriends";
 import type * as sendPayment from "../sendPayment";
@@ -40,6 +41,7 @@ export type API = ApiFromModules<{
   getUser: typeof getUser;
   listFriends: typeof listFriends;
   listRequests: typeof listRequests;
+  listTransactions: typeof listTransactions;
   listUsers: typeof listUsers;
   searchFriends: typeof searchFriends;
   sendPayment: typeof sendPayment;

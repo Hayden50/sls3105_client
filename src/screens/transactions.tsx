@@ -1,27 +1,38 @@
-import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import React, { FC } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import TransactionComponent from "../components/transaction";
+import { useQuery } from "../../convex/_generated/react";
+import { useUser } from "@clerk/clerk-expo";
 
-const transactions = [
-    {
-      id: "1",
-      amount: 100,
-      sender: "Hayden1000",
-      receiver: "therealcob",
-      date: new Date(),
-      change: "positive",
-    },
-    {
-      id: "2",
-      amount: 200,
-      sender: "therealcob",
-      receiver: "gabbylowy",
-      date: new Date(),
-      change: "negative",
-    },
-  ];
+const getTransactionData = (user: any) => {
+  const data = (useQuery("listTransactions") || [])
+    .filter(
+      (trans) =>
+        trans.sender_username == user?.username ||
+        trans.receiver_username == user?.username
+    )
+    .reverse();
+
+  const res = data.map((transaction) => ({
+    ...transaction,
+    sent_money: transaction.sender_username === user?.username,
+  }));
+
+  return res;
+};
 
 const App: FC = ({ navigation }) => {
+  const { user } = useUser();
+  const transactions = getTransactionData(user);
+
+  console.log(transactions[0]?._creationTime);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -32,22 +43,21 @@ const App: FC = ({ navigation }) => {
           {"\u21A9"}
         </Text>
       </TouchableOpacity>
-        <Text style={styles.title}>Transaction History</Text>
+      <Text style={styles.title}>Transaction History</Text>
 
-        <FlatList
+      <FlatList
         data={transactions}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <TransactionComponent transaction={item} />}
       />
     </View>
-    
   );
 };
 
 export default App;
 
 const styles = StyleSheet.create({
-  title:{
+  title: {
     marginTop: 0,
     textAlign: "center",
     color: "#000",

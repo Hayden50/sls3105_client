@@ -18,7 +18,8 @@ const App: FC = ({ navigation }) => {
     .filter((req) => req.user_username == user?.username)
     .reverse();
 
-  const userFromConvex = useQuery("getUser", { username: "gabby" }) || null;
+  const userFromConvex =
+    useQuery("getUser", { username: user?.username }) || null;
 
   return (
     <View style={styles.container}>
@@ -61,7 +62,9 @@ const App: FC = ({ navigation }) => {
         }}
         style={styles.button}
       >
-      <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Log out</Text>
+        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+          Log out
+        </Text>
       </TouchableOpacity>
     </View>
   );
