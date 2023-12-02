@@ -38,6 +38,8 @@ export default mutation(async ({ db }, {userUsername, friendUsername, payment}) 
     const userNewBalance = parseFloat((userBalance - paymentVal).toFixed(2));
     const friendNewBalance = parseFloat((friendBalance + paymentVal).toFixed(2));
 
+    await db.insert("transactions", {receiver_username: friendUsername, sender_username: userUsername, amount: paymentVal});
+
     await db.patch(user._id, {balance: userNewBalance});
     await db.patch(friend._id, {balance: friendNewBalance});
 
