@@ -52,43 +52,49 @@ const App: FC = ({ navigation }) => {
         </Text>
         
       </TouchableOpacity> */}
-      <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
-        <TouchableOpacity
-            onPress={() => {
-            signOut();
-            }}
-            style={styles.button}
-        >
-            <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-            Log out
-            </Text>
-        </TouchableOpacity>
+      <View style={{height: '35%', marginTop: 35}}>
+        <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <TouchableOpacity
+                onPress={() => {
+                signOut();
+                }}
+                style={styles.button}
+            >
+                <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+                Log out
+                </Text>
+            </TouchableOpacity>
+        </View>
+        <View style={styles.circle}>
+            <Text style={styles.letter}>{user?.username[0]}</Text>
+        </View>
+        <Text style={styles.greeting}>Hello @{user?.username}!</Text>
+        <Text style={styles.balance}>Balance: ${userFromConvex?.balance || 0}</Text>
+              
       </View>
-      <View style={styles.circle}>
-        <Text style={styles.letter}>{user?.username[0]}</Text>
-      </View>
-      <Text style={styles.greeting}>Hello @{user?.username}!</Text>
-      <Text style={styles.balance}>Balance: ${userFromConvex?.balance || 0}</Text>
+      <View style={{maxHeight: '35%'}}>
         <Text style={styles.header}>Pending Requests</Text>
-      <FlatList
-        style={styles.requestList}
-        data={requestData}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
-          <View style={styles.requestItem}>
-            <Text style={styles.requestItemText}>{item.friend_username}</Text>
-            <Text style={styles.requestItemAmount}>${item.amount}</Text>
-          </View>
-        )}
-      />
-      <Text style={styles.header}>History</Text>
-      <FlatList
-        style={styles.requestList}
-        data={transactions}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => <TransactionComponent transaction={item} />}
-      />
-
+        <FlatList
+            style={styles.requestList}
+            data={requestData}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+            <View style={styles.requestItem}>
+                <Text style={styles.requestItemText}>{item.friend_username}</Text>
+                <Text style={styles.requestItemAmount}>${item.amount}</Text>
+            </View>
+            )}
+        />
+      </View>
+      <View style={{flexGrow: 1, maxHeight: '30%'}}>
+        <Text style={styles.header}>History</Text>
+        <FlatList
+            style={styles.requestList}
+            data={transactions}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => <TransactionComponent transaction={item} />}
+        />
+        </View>
     </View>
   );
 };
@@ -115,12 +121,12 @@ const styles = StyleSheet.create({
   },
   container: {
     display: "flex",
-    marginTop: 35,
     padding: 10,
+    height: "100%",
   },
   greeting: {
     fontWeight: "bold",
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 10,
     fontFamily: "WorkSans_600SemiBold",
     textAlign: "center",
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   requestList: {
-    // height: '300',
+    flexGrow: 1,
   },
   requestItem: {
     borderWidth: 1,
