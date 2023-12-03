@@ -70,13 +70,25 @@ const App: FC = ({ navigation }) => {
             setReqError("Error with payment. Please try again.")
     }
     const handleSend = async () => {
+        var recipValid = false;
+        var reqValid = false;
         if (!recipient || recipient.length == 0) {
             setRecipError("Recipient's username is required.");
             return;
+        } else {
+            setRecipError("")
+            recipValid = true
         }
         if (!reqAmount || reqAmount.length == 0) {
             setReqError("Amount is required.");
             return;
+        } else {
+            setReqError("");
+            reqValid = true;
+        }
+        if (recipValid && reqValid) {
+            setRecipient("");
+            setReqAmount("");
         }
 
         console.log("sending", user.username, recipient, reqAmount, sendPayment)
@@ -234,8 +246,8 @@ const App: FC = ({ navigation }) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 10 }}></View>
-                {recipError.length > 0 && <Text>{recipError}</Text>}
+                <View style={{ marginTop: 30 }}></View>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>{recipError}</Text>
             </View>
         </View>
     );
