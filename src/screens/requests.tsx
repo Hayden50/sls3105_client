@@ -265,15 +265,8 @@ const App: FC = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
+        
         <View style={{ marginTop: 50 }}></View>
-        <TouchableOpacity
-            onPress={() => navigation.navigate("RecurPayments")}
-            style={styles.button}
-          >
-            <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
-              Recurring Payments
-            </Text>
-        </TouchableOpacity>
         {recipError.length > 0 && <Text>{recipError}</Text>}
         {reqError.length > 0 && <Text>{reqError}</Text>}
       </View>
