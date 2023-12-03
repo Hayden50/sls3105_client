@@ -248,7 +248,7 @@ const App: FC = ({ navigation }) => {
             <Text style={{ color: "#fff", fontFamily: 'WorkSans_600SemiBold', textAlign: 'center' }}>
               Request
             </Text>
-          </TouchableOpacity>}
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={handleSend}
             style={styles.button}
@@ -263,9 +263,7 @@ const App: FC = ({ navigation }) => {
         {recipError.length > 0 && <Text>{recipError}</Text>}
         {reqError.length > 0 && <Text>{reqError}</Text>}
         </View>
-        <View style={{ marginTop: 10 }}></View>
       </View>
-    </View>
   );
 };
 
