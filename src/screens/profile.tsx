@@ -65,6 +65,7 @@ const App: FC = ({ navigation }) => {
                 </Text>
             </TouchableOpacity>
         </View>
+        <View style={{marginTop: -20}}></View>
         <View style={styles.circle}>
             <Text style={styles.letter}>{user?.username[0]}</Text>
         </View>
@@ -72,7 +73,7 @@ const App: FC = ({ navigation }) => {
         <Text style={styles.balance}>Balance: ${userFromConvex?.balance || 0}</Text>
               
       </View>
-      <View style={{maxHeight: '35%'}}>
+      <View style={{maxHeight: '21%'}}>
         <Text style={styles.header}>Pending Requests</Text>
         <FlatList
             style={styles.requestList}
@@ -86,7 +87,7 @@ const App: FC = ({ navigation }) => {
             )}
         />
       </View>
-      <View style={{flexGrow: 1, maxHeight: '30%'}}>
+      <View style={{flexGrow: 1, maxHeight: '39%'}}>
         <Text style={styles.header}>History</Text>
         <FlatList
             style={styles.requestList}
@@ -127,15 +128,15 @@ const styles = StyleSheet.create({
   greeting: {
     fontWeight: "bold",
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 0,
     fontFamily: "WorkSans_600SemiBold",
     textAlign: "center",
     fontSize: headerSize,
   },
   header: {
     fontWeight: "bold",
-    marginTop: 30,
-    marginBottom: 10,
+    marginTop: -10,
+    marginBottom: 5,
     fontFamily: "WorkSans_600SemiBold",
     textAlign: "left",
     fontSize: headerSize,
@@ -166,12 +167,13 @@ const styles = StyleSheet.create({
   },
   requestList: {
     flexGrow: 1,
+    marginBottom: 15,
   },
   requestItem: {
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    margin: 5,
+    margin: 2,
     backgroundColor: "#e0e0e0",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -179,7 +181,6 @@ const styles = StyleSheet.create({
   },
   requestItemText: {
     fontSize: 14,
-    fontStyle: "italic",
   },
   requestItemAmount: {
     fontSize: 14,
