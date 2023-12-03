@@ -235,8 +235,9 @@ const App: FC = ({ navigation }) => {
                     returnKeyType="done"
                 />
             </View>
-            <TouchableOpacity>
-                <Text style={{ color: "#300796", textAlign: 'center', fontWeight: 'bold' }}>Repeat</Text>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("RecurPayments")}>
+                <Text style={{ color: "#300796", textAlign: 'center', fontFamily: 'WorkSans_600SemiBold' }}>Repeat</Text>
             </TouchableOpacity>
           </View>
         <View style={styles.buttonContainer}>
@@ -248,15 +249,15 @@ const App: FC = ({ navigation }) => {
             />
           </View> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleRequest}
             style={styles.button}
           >
-            <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
+            <Text style={{ color: "#fff", fontFamily: 'WorkSans_600SemiBold', textAlign: 'center' }}>
               Request
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             onPress={handleSend}
             style={styles.button}
           >
@@ -265,7 +266,23 @@ const App: FC = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        
+        <TouchableOpacity
+            onPress={handleRequest}
+            style={styles.button}
+          >
+            <Text style={{ color: "#fff", fontFamily: 'WorkSans_600SemiBold', textAlign: 'center' }}>
+              Request
+            </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={handleSend}
+            style={styles.button}
+          >
+            <Text style={{ color: "#fff", fontFamily: 'WorkSans_600SemiBold', textAlign: 'center' }}>
+              Send
+            </Text>
+        </TouchableOpacity>
+        </View>
         <View style={{ marginTop: 50 }}></View>
         {recipError.length > 0 && <Text>{recipError}</Text>}
         {reqError.length > 0 && <Text>{reqError}</Text>}
