@@ -34,6 +34,7 @@ const App: FC = ({ navigation }) => {
   const [recipError, setRecipError] = useState("");
   const [reqError, setReqError] = useState("");
 
+
   const handleRequest = async () => {
     var recipValid = false;
     if (recipient.length == 0){
@@ -59,9 +60,42 @@ const App: FC = ({ navigation }) => {
         friend_username: recipient,
         amount: parseFloat(reqAmount),
     });
+      navigation.navigate("RequestsSuccess");
     }
   }
+  const handleSend = async () => {
+    var recipValid = false;
+    if (recipient.length == 0){
+      setRecipError("Recipient's username is required.");
+    } else {
+      setRecipError("")
+      recipValid = true
+    }
 
+    var reqValid = false;
+    if (reqAmount.length == 0) {
+      setReqError("Amount is required.");
+    } else {
+      setReqError("");
+      reqValid = true;
+    }
+    if (recipValid && reqValid) {
+      setRecipient("");
+      setReqAmount("");
+      console.log("sending", user.username, recipient, reqAmount, sendPayment)
+      const paid = await sendPayment({
+      userUsername: user.username,
+      friendUsername: recipient,
+      payment: reqAmount,
+    });
+      navigation.navigate("RequestsSuccess");
+    }
+  }
+  function handlePress() {
+    showMessage({
+      message: "Amount is required."
+    });
+  }
   const handleSearchClick = () => {
     console.log("Clicked Search Bar");
   };
@@ -111,7 +145,7 @@ const App: FC = ({ navigation }) => {
       console.log("TODO: SHOW ERROR. PAYMENT NOT WORKING");
     }
   }
-  const handleSend = async () => {
+  const handleSend2 = async () => {
     if (!recipient || !user) return;
     console.log("sending", user.username, recipient, reqAmount, sendPayment)
     const paid = await sendPayment({
@@ -200,11 +234,11 @@ const App: FC = ({ navigation }) => {
                     keyboardType="numeric"
                     returnKeyType="done"
                 />
-                {reqError.length > 0 && <Text>{reqError}</Text>}
             </View>
             <TouchableOpacity>
                 <Text style={{ color: "#300796", textAlign: 'center', fontWeight: 'bold' }}>Repeat</Text>
             </TouchableOpacity>
+            {reqError.length > 0 && <Text>{reqError}</Text>}
           </View>
         <View style={styles.buttonContainer}>
           {/* <View style={styles.menuContainer}>
