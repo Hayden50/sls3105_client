@@ -5,12 +5,14 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Alert, SafeAreaView, Button,
 } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import SimpleMenu from "../components/popUpMenu";
 import { headerSize } from "../lib/styles";
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -43,6 +45,13 @@ const App: FC = ({ navigation }) => {
     (user) => user.includes(searchTerm) && !friends.includes(user)
   );
 
+  const handleErrorMessage = () => Alert.alert('Action cannot be done.', 'Please check your entered inputs.', [
+    {
+      text: 'OK',
+      onPress: () => console.log('OK Pressed'),
+      style: 'cancel',
+    },]);
+
   const handleAddRequest = () => {
     // TODO: implement some sort of response on failure
     addRequest({
@@ -73,9 +82,24 @@ const App: FC = ({ navigation }) => {
 
     if (paid) {
       console.log("Success");
-      navigation.navigate("RequestsSuccess");
+      //setIsSuccess(true);
+      function handlePress() {
+        showMessage({
+          message: 'Request Sent Successfully!'
+        });
+      }
+      return (
+        <SafeAreaView style={styles.container}>
+          <Button
+            title="Show alert"
+            onPress={handlePress}/>
+          <FlashMessage/>
+        </SafeAreaView>
+      );
+      //navigation.navigate("RequestsSuccess");
     } else {
       console.log("TODO: SHOW ERROR. PAYMENT NOT WORKING");
+
     }
   }
   const handleSend = async () => {
@@ -194,10 +218,18 @@ const App: FC = ({ navigation }) => {
             style={styles.button}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
-              Send
+              One-Time Payment
             </Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+            onPress={() => navigation.navigate("RecurPayments")}
+            style={styles.button}
+          >
+            <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
+              Recurring Payments
+            </Text>
+        </TouchableOpacity>
         <View style={{ marginTop: 10 }}></View>
       </View>
     </View>
@@ -322,15 +354,6 @@ const styles = StyleSheet.create({
     gap: 2,
     width: "100%",
   },
-  moneyButton: {
-    width: 75,
-    height: 75,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 100,
-    backgroundColor: "#300796",
-  },
   backButton: {
     borderWidth: 1,
     borderRadius: 30,
@@ -340,4 +363,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#300796",
     width: 50,
   },
+  rectangleButton: {
+    borderWidth: 1,
+    borderRadius: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 15,
+    backgroundColor: "#300796",
+    marginLeft: 30,
+    marginRight: 30,
+    flexGrow: 1
+  }
 });
