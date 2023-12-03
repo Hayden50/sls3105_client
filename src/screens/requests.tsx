@@ -5,12 +5,14 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Alert, SafeAreaView, Button,
 } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import SimpleMenu from "../components/popUpMenu";
 import { headerSize } from "../lib/styles";
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -29,7 +31,71 @@ const App: FC = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [reqAmount, setReqAmount] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [recipError, setRecipError] = useState("");
+  const [reqError, setReqError] = useState("");
 
+
+  const handleRequest = async () => {
+    var recipValid = false;
+    if (recipient.length == 0){
+      setRecipError("Recipient's username is required.");
+    } else {
+      setRecipError("")
+      recipValid = true
+    }
+
+    var reqValid = false;
+    if (reqAmount.length == 0) {
+      setReqError("Amount is required.");
+    } else {
+      setReqError("");
+      reqValid = true;
+    }
+    if (recipValid && reqValid) {
+      setRecipient("");
+      setReqAmount("");
+      console.log("requesting", user.username, recipient, reqAmount, sendPayment)
+      const paid = await addRequest({
+        user_username: user.username,
+        friend_username: recipient,
+        amount: parseFloat(reqAmount),
+    });
+      navigation.navigate("RequestsSuccess");
+    }
+  }
+  const handleSend = async () => {
+    var recipValid = false;
+    if (recipient.length == 0){
+      setRecipError("Recipient's username is required.");
+    } else {
+      setRecipError("")
+      recipValid = true
+    }
+
+    var reqValid = false;
+    if (reqAmount.length == 0) {
+      setReqError("Amount is required.");
+    } else {
+      setReqError("");
+      reqValid = true;
+    }
+    if (recipValid && reqValid) {
+      setRecipient("");
+      setReqAmount("");
+      console.log("sending", user.username, recipient, reqAmount, sendPayment)
+      const paid = await sendPayment({
+      userUsername: user.username,
+      friendUsername: recipient,
+      payment: reqAmount,
+    });
+      navigation.navigate("RequestsSuccess");
+    }
+  }
+  function handlePress() {
+    showMessage({
+      message: "Amount is required."
+    });
+  }
   const handleSearchClick = () => {
     console.log("Clicked Search Bar");
   };
@@ -42,6 +108,7 @@ const App: FC = ({ navigation }) => {
   const filtered_users = users.filter(
     (user) => user.includes(searchTerm) && !friends.includes(user)
   );
+
 
   const handleAddRequest = () => {
     // TODO: implement some sort of response on failure
@@ -60,9 +127,8 @@ const App: FC = ({ navigation }) => {
       amount: reqAmount,
     });
   };
-
-  
-  const handleRequest = async () => {
+  //most likely not using the below handleRequest due to error messages
+  const handleRequest2 = async () => {
     if (!recipient || !user) return;
     console.log("requesting", user.username, recipient, reqAmount, sendPayment)
     const paid = await addRequest({
@@ -73,12 +139,13 @@ const App: FC = ({ navigation }) => {
 
     if (paid) {
       console.log("Success");
-      navigation.navigate("RequestsSuccess");
+      //setIsSuccess(true);
+      //navigation.navigate("RequestsSuccess");
     } else {
       console.log("TODO: SHOW ERROR. PAYMENT NOT WORKING");
     }
   }
-  const handleSend = async () => {
+  const handleSend2 = async () => {
     if (!recipient || !user) return;
     console.log("sending", user.username, recipient, reqAmount, sendPayment)
     const paid = await sendPayment({
@@ -171,6 +238,7 @@ const App: FC = ({ navigation }) => {
             <TouchableOpacity>
                 <Text style={{ color: "#300796", textAlign: 'center', fontWeight: 'bold' }}>Repeat</Text>
             </TouchableOpacity>
+            {reqError.length > 0 && <Text>{reqError}</Text>}
           </View>
         <View style={styles.buttonContainer}>
           {/* <View style={styles.menuContainer}>
@@ -194,10 +262,18 @@ const App: FC = ({ navigation }) => {
             style={styles.button}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
-              Send
+              One-Time Payment
             </Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+            onPress={() => navigation.navigate("RecurPayments")}
+            style={styles.button}
+          >
+            <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
+              Recurring Payments
+            </Text>
+        </TouchableOpacity>
         <View style={{ marginTop: 10 }}></View>
       </View>
     </View>
@@ -322,15 +398,6 @@ const styles = StyleSheet.create({
     gap: 2,
     width: "100%",
   },
-  moneyButton: {
-    width: 75,
-    height: 75,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 100,
-    backgroundColor: "#300796",
-  },
   backButton: {
     borderWidth: 1,
     borderRadius: 30,
@@ -340,4 +407,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#300796",
     width: 50,
   },
+  rectangleButton: {
+    borderWidth: 1,
+    borderRadius: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 15,
+    backgroundColor: "#300796",
+    marginLeft: 30,
+    marginRight: 30,
+    flexGrow: 1
+  }
 });
