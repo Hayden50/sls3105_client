@@ -9,10 +9,30 @@ import {
 } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
 import { useQuery } from "../../convex/_generated/react";
+import { headerSize } from "../lib/styles";
+import TransactionComponent from "../components/transaction";
+
+const getTransactionData = (user: any) => {
+    const data = (useQuery("listTransactions") || [])
+      .filter(
+        (trans) =>
+          trans.sender_username == user?.username ||
+          trans.receiver_username == user?.username
+      )
+      .reverse();
+  
+    const res = data.map((transaction) => ({
+      ...transaction,
+      sent_money: transaction.sender_username === user?.username,
+    }));
+  
+    return res;
+  };
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
   const { signOut } = useClerk();
+  const transactions = getTransactionData(user);
 
   const requestData = (useQuery("listRequests") || [])
     .filter((req) => req.user_username == user?.username)
@@ -23,20 +43,33 @@ const App: FC = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={styles.backButton}
       >
         <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
           {"\u21A9"}
         </Text>
-      </TouchableOpacity>
+        
+      </TouchableOpacity> */}
+      <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <TouchableOpacity
+            onPress={() => {
+            signOut();
+            }}
+            style={styles.button}
+        >
+            <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+            Log out
+            </Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.circle}>
         <Text style={styles.letter}>{user?.username[0]}</Text>
       </View>
       <Text style={styles.greeting}>Hello @{user?.username}!</Text>
-      <Text style={styles.balance}>${userFromConvex?.balance || 0}</Text>
-
+      <Text style={styles.balance}>Balance: ${userFromConvex?.balance || 0}</Text>
+        <Text style={styles.header}>Pending Requests</Text>
       <FlatList
         style={styles.requestList}
         data={requestData}
@@ -48,24 +81,14 @@ const App: FC = ({ navigation }) => {
           </View>
         )}
       />
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Transactions")}
-        style={styles.button}
-      >
-        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-          Transaction History
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          signOut();
-        }}
-        style={styles.button}
-      >
-        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-          Log out
-        </Text>
-      </TouchableOpacity>
+      <Text style={styles.header}>History</Text>
+      <FlatList
+        style={styles.requestList}
+        data={transactions}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => <TransactionComponent transaction={item} />}
+      />
+
     </View>
   );
 };
@@ -101,7 +124,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: "WorkSans_600SemiBold",
     textAlign: "center",
-    fontSize: 30,
+    fontSize: headerSize,
+  },
+  header: {
+    fontWeight: "bold",
+    marginTop: 30,
+    marginBottom: 10,
+    fontFamily: "WorkSans_600SemiBold",
+    textAlign: "left",
+    fontSize: headerSize,
   },
   balance: {
     fontWeight: "bold",
@@ -128,7 +159,7 @@ const styles = StyleSheet.create({
     width: 50,
   },
   requestList: {
-    height: 300,
+    // height: '300',
   },
   requestItem: {
     borderWidth: 1,

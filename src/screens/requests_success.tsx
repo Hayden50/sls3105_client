@@ -41,7 +41,7 @@ const App: FC = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Requests")}
         style={styles.backButton}
       >
         <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>

@@ -1,7 +1,7 @@
 import { mutation } from "./_generated/server";
 
 export default mutation(async ({ db }, {userUsername, friendUsername, payment}) => {
-    
+    console.log("sendPayment.ts", userUsername, friendUsername, payment);
     const user = await db.query("users")
                          .filter(q => q.eq(q.field("username"), userUsername))
                          .first();

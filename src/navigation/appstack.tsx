@@ -23,6 +23,7 @@ const RequestsNavigator = () => {
     <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="Requests" component={Requests} />
       <Screen name="RecurPayments" component={RecurPayments} />
+      <Screen name="RequestsSuccess" component={RequestsSuccess} />
     </Navigator>
   );
 };
