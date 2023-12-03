@@ -37,15 +37,26 @@ const App: FC = ({ navigation }) => {
     const [repeatVisible, setRepeatVisible] = useState(false);
     const [repeat, setRepeat] = useState(0); // 1 = daily, 2 = weekly, 3 = monthly, 4 = yearly
     const handleRequest = async () => {
+        var recipValid = false;
+        var reqValid = false;
         if (!recipient || recipient.length == 0) {
             setRecipError("Recipient's username is required.");
             return;
+        } else {
+            setRecipError("")
+            recipValid = true
         }
         if (!reqAmount || reqAmount.length == 0) {
             setReqError("Amount is required.");
             return;
+        } else {
+            setReqError("");
+            reqValid = true;
         }
-
+        if (recipValid && reqValid) {
+            setRecipient("");
+            setReqAmount("");
+        }
         console.log("requesting", user.username, recipient, reqAmount, sendPayment)
         const paid = await addRequest({
             user_username: user.username,
@@ -206,30 +217,6 @@ const App: FC = ({ navigation }) => {
                     )}
                 </View>
                 <View style={styles.buttonContainer}>
-                    {/* <View style={styles.menuContainer}>
-            <SimpleMenu
-              paymentValue={reqAmount}
-              userUsername={user?.username}
-              friendUsername={searchTerm}
-            />
-          </View> */}
-
-                    {/* <TouchableOpacity
-            onPress={handleRequest}
-            style={styles.button}
-          >
-            <Text style={{ color: "#fff", fontFamily: 'WorkSans_600SemiBold', textAlign: 'center' }}>
-              Request
-            </Text>
-          </TouchableOpacity> */}
-                    {/* <TouchableOpacity
-            onPress={handleSend}
-            style={styles.button}
-          >
-            <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
-              One-Time Payment
-            </Text>
-          </TouchableOpacity> */}
                     <TouchableOpacity
                         onPress={handleRequest}
                         style={styles.button}
@@ -248,6 +235,7 @@ const App: FC = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 10 }}></View>
+                {recipError.length > 0 && <Text>{recipError}</Text>}
             </View>
         </View>
     );
