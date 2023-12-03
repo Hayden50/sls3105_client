@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import { Input } from "../components";
+import { headerSize } from "../lib/styles";
 import Dropdown from "../components/dropdown";
 
 const App: FC = ({ navigation }) => {
@@ -30,6 +31,10 @@ const App: FC = ({ navigation }) => {
     (user) => user.includes(searchTerm) && !friends.includes(user)
   );
 
+  const handleTextChange = (num: string) => {
+    setReqAmount(num);
+  };
+
   const handleAddRequest = () => {
     // TODO: implement some sort of response on failure
     addRequest({
@@ -46,6 +51,8 @@ const App: FC = ({ navigation }) => {
       amount: reqAmount,
     });
   };
+
+  const [recipient, setRecipient] = useState("");
   const [selected, setSelected] = useState(undefined);
   const data = [
     { label: 'Day(s)', value: '1' },
@@ -65,31 +72,85 @@ const App: FC = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
       <Text style={styles.greeting}>Recurring Payments</Text>
-          <View style={styles.inputAmount}>
-          <TextInput
-            style={styles.input}
-            autoCapitalize='none'
-            placeholder="Username"//carry username from requests page to this page
-            //onClick
-          />
+        <SearchBar
+          onSearchClick={handleSearchClick}
+          onSearchChange={setSearchTerm}
+        />
+        <View style={styles.friendsContainer}>
+            {filtered_friends.length > 0 && (
+              <View style={styles.friendsList}>
+                <Text style={styles.friendsTitle}>Friends</Text>
+                {friends &&
+                  filtered_friends.slice(0, 4).map((user) => {
+                    return (
+                      <View style={recipient == user ? styles.friendsRowSelected : styles.friendsRow} key={user}>
+                      <TouchableOpacity
+                          onPress={() => {
+                              setRecipient(user);
+                          }}
+                          >
+                          <Text style={{ fontFamily: "WorkSans_400Regular" }}>
+                              @{user}
+                          </Text>
+                      </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+              </View>
+            )}
+
+            {filtered_friends.length == 0 && (
+              <View style={styles.usersList}>
+                  <Text style={styles.friendsTitle}>All Users</Text>
+                  {filtered_users.length > 0 ? (
+                  filtered_users.slice(0, 3).map((user) => {
+                      return (
+                          <View style={recipient == user ? styles.friendsRowSelected : styles.friendsRow} key={user}>
+                          <TouchableOpacity
+                              onPress={() => {
+                                  setRecipient(user);
+                              }}
+                          >
+                              <Text style={{ fontFamily: "WorkSans_400Regular" }}>
+                              @{user}
+                              </Text>
+                          </TouchableOpacity>
+                      </View>
+                      );
+                  })
+                  ) : (
+                  <Text style={{ fontFamily: "WorkSans_400Regular" }}>
+                      No users matching search criteria
+                  </Text>
+                  )}
+              </View>
+            )}
           </View>
           <View style={styles.inputAmount}>
-          <TextInput
-            style={styles.input}
-            autoCapitalize='none'
-            placeholder="Amount"//carry amount from requests page to this page
-            //onClick
-          />
-          </View> 
-          <View style={{ marginTop: 50 }}></View>
+            <Text style={styles.amountTitle}>Amount</Text>
+            <View style={{display: 'flex', flexDirection:'row', justifyContent: 'center'}}>
+                <Text style={{fontSize: 40, fontWeight: 'bold'}}>$</Text>
+                <TextInput
+                    style={{fontFamily: "WorkSans_600SemiBold", fontSize: 40}}
+                    autoCapitalize="none"
+                    placeholder="0"
+                    onChangeText={handleTextChange}
+                    // value={reqAmount}
+                    keyboardType="numeric"
+                    returnKeyType="done"
+                />
+            </View>
+          </View>
+          <View style={{ marginTop: 10 }}></View>
           <Text>Payment sent every...</Text>
           <View style={{ marginTop: 10 }}></View>
           <View style={styles.inputAmount}>
           <TextInput
-            style={styles.input}
-            autoCapitalize='none'
-            placeholder=""//carry amount from requests page to this page
-            //onClick
+            style={{fontFamily: "WorkSans_600SemiBold", fontSize: 40}}
+            autoCapitalize="none"
+            placeholder="0"
+            keyboardType="numeric"
+            returnKeyType="done"
           />
           </View> 
           <View style={styles.container}>
@@ -234,5 +295,21 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#300796",
     width: 50,
+  },
+  friendsRowSelected: {
+    display: "flex",
+    borderColor: "#300796",
+    borderWidth: 1,
+    borderRadius: 10,
+    width: "100%",
+    padding: 10,
+    backgroundColor: "lightgrey",
+  },
+  amountTitle: {
+    fontWeight: "bold",
+    fontSize: headerSize,
+    marginBottom: 4,
+    fontFamily: "WorkSans_600SemiBold",
+    textAlign: "center",
   },
 });
