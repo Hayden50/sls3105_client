@@ -250,7 +250,7 @@ const App: FC = ({ navigation }) => {
 
           <TouchableOpacity
             onPress={handleRequest}
-            style={styles.rectangleButton}
+            style={styles.button}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               Request
@@ -258,22 +258,22 @@ const App: FC = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleSend}
-            style={styles.rectangleButton}
+            style={styles.button}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               One-Time Payment
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+        </View>
+        <View style={{ marginTop: 50 }}></View>
+        <TouchableOpacity
             onPress={() => navigation.navigate("RecurPayments")}
-            style={styles.rectangleButton}
+            style={styles.button}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               Recurring Payments
             </Text>
         </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 50 }}></View>
         {recipError.length > 0 && <Text>{recipError}</Text>}
         {reqError.length > 0 && <Text>{reqError}</Text>}
       </View>
