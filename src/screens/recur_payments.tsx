@@ -71,6 +71,7 @@ const App: FC = ({ navigation }) => {
           {"\u21A9"}
         </Text>
       </TouchableOpacity>
+      <View style = {{marginTop: -30}}></View>
       <Text style={styles.greeting}>Recurring Payments</Text>
         <SearchBar
           onSearchClick={handleSearchClick}
@@ -126,8 +127,8 @@ const App: FC = ({ navigation }) => {
               </View>
             )}
           </View>
+          <Text style={styles.amountTitle}>Amount</Text>
           <View style={styles.inputAmount}>
-            <Text style={styles.amountTitle}>Amount</Text>
             <View style={{display: 'flex', flexDirection:'row', justifyContent: 'center'}}>
                 <Text style={{fontSize: 40, fontWeight: 'bold'}}>$</Text>
                 <TextInput
@@ -142,7 +143,7 @@ const App: FC = ({ navigation }) => {
             </View>
           </View>
           <View style={{ marginTop: 10 }}></View>
-          <Text>Payment sent every...</Text>
+          <Text style = {styles.amountTitle}>Payment sent every...</Text>
           <View style={{ marginTop: 10 }}></View>
           <View style={styles.inputAmount}>
           <TextInput
@@ -153,9 +154,11 @@ const App: FC = ({ navigation }) => {
             returnKeyType="done"
           />
           </View> 
+          <View style = {{marginTop: -25}}></View>
           <View style={styles.container}>
             {!!selected}
-            <Dropdown label="Time" data={data} onSelect={setSelected} />
+            <Text style = {{fontFamily: "WorkSans_600SemiBold", fontSize: 40}}></Text>
+            <Dropdown label="Time" data={data} onSelect={setSelected} dropdownStyles={styles.dropdown}/>
           </View>
 
         <View style = {styles.buttonContainer}>
@@ -290,7 +293,7 @@ const styles = StyleSheet.create({
   backButton: {
     borderWidth: 1,
     borderRadius: 30,
-    marginTop: 10,
+    marginTop: 40,
     marginBottom: 100,
     padding: 15,
     backgroundColor: "#300796",
@@ -311,5 +314,10 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     fontFamily: "WorkSans_600SemiBold",
     textAlign: "center",
+  },
+  dropdown: {
+    fontSize: 50, // Change the font size here
+    fontWeight: 'bold',
+    fontFamily: "WorkSans_600SemiBold",
   },
 });
