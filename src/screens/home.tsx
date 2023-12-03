@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
+import { FlatList } from "react-native-gesture-handler";
 
 
 const App: FC = ({navigation}) => {
@@ -39,6 +40,8 @@ const App: FC = ({navigation}) => {
         deleteFriend({user_username: user?.username, friend_username: friendUser})
     }
 
+    
+
 
     return (
         <View style={styles.container}>
@@ -54,26 +57,36 @@ const App: FC = ({navigation}) => {
                 <View style={styles.friendsContainer}>
                     {filtered_friends.length > 0 && <View style={styles.friendsList} >
                         <Text style={styles.friendsTitle}>Friends</Text>
-                        {friends && filtered_friends.slice(0, 10).map((user) => {
-                            return (
-                                <TouchableOpacity onPress={() => handleRemoveButton(user)} style={styles.friendsRow} key={user}>
-                                    <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
-                                </TouchableOpacity>
-                            )
-                            })
-                        }
+                        <View style = {{height: 200}}>
+                        <FlatList
+                        data={friends }
+                        renderItem={({ item }) => (
+                            <TouchableOpacity onPress={() => handleRemoveButton(item)}>
+                            <Text style={styles.friendsRow}>@{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item.toString()}
+                        />
+                        </View>
                     </View> 
                     }
                     <View style={styles.usersList}>
                         <Text style={styles.friendsTitle}>All Users</Text>
-                        {filtered_users.length > 0 ? filtered_users.slice(0, 3).map((user) => {
-                            return (
-                                <TouchableOpacity onPress={() => handleAddButton(user)} style={styles.friendsRow} key={user}>
-                                    <Text style = {{fontFamily: 'WorkSans_400Regular'}}>@{user}</Text>
+                        {filtered_users.length > 0 ? (
+                        <View style={{ height:155 }}>
+                            <FlatList
+                            data={filtered_users}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => handleAddButton(item)} >
+                                <Text style={styles.friendsRow}>@{item}</Text>
                                 </TouchableOpacity>
-                            )
-                            }) : <Text style = {{fontFamily: 'WorkSans_400Regular'}}>No users matching search criteria</Text>
-                        }
+                            )}
+                            keyExtractor={(item) => item.toString()}
+                            />
+                        </View>
+                        ) : (
+                        <Text style={{ fontFamily: 'WorkSans_400Regular' }}>No users matching search criteria</Text>
+                        )}
                     </View>
                 </View>
                 <View style = {styles.buttonContainer}>
