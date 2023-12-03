@@ -49,7 +49,7 @@ const App: FC = ({ navigation }) => {
           {"\u21A9"}
         </Text>
       </TouchableOpacity>
-      <Text style={styles.greeting}>Action Successfully Completed</Text>
+      <Text style={styles.greeting}>🎊 Payment Complete 🎊</Text>
 
     </View>
   );

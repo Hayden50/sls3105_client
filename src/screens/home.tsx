@@ -48,7 +48,6 @@ const App: FC = ({navigation}) => {
             </TouchableOpacity> 
             <Text style={styles.greeting}>Hello @{user?.username}</Text>
             <SearchBar 
-                onSearchClick={handleSearchClick}
                 onSearchChange={setSearchTerm}
             />
             <View style={styles.localContainer}>

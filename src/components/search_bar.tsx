@@ -4,10 +4,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface SearchBarProps {
   onSearchChange: (searchValue: string) => void;
-  onSearchClick: (searchValue: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchChange = (text: string) => {
@@ -15,10 +14,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) 
     onSearchChange(text);
   };
   
-  const handleSearchClick = () => {
-    onSearchClick(searchValue);
-  };
-
   return (
     <View style={styles.container}>
       <TextInput
@@ -27,7 +22,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, onSearchClick }) 
         placeholder="Enter name..."
         onChangeText={handleSearchChange}
         value={searchValue}
-        onPressIn={handleSearchClick}
         returnKeyType='done'
       />
     </View>
