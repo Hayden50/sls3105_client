@@ -31,6 +31,36 @@ const App: FC = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [reqAmount, setReqAmount] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [recipError, setRecipError] = useState("");
+  const [reqError, setReqError] = useState("");
+
+  const handleRequest = async () => {
+    var recipValid = false;
+    if (recipient.length == 0){
+      setRecipError("Recipient's username is required.");
+    } else {
+      setRecipError("")
+      recipValid = true
+    }
+
+    var reqValid = false;
+    if (reqAmount.length == 0) {
+      setReqError("Amount is required.");
+    } else {
+      setReqError("");
+      reqValid = true;
+    }
+    if (recipValid && reqValid) {
+      setRecipient("");
+      setReqAmount("");
+      console.log("requesting", user.username, recipient, reqAmount, sendPayment)
+      const paid = await addRequest({
+        user_username: user.username,
+        friend_username: recipient,
+        amount: parseFloat(reqAmount),
+    });
+    }
+  }
 
   const handleSearchClick = () => {
     console.log("Clicked Search Bar");
@@ -45,12 +75,6 @@ const App: FC = ({ navigation }) => {
     (user) => user.includes(searchTerm) && !friends.includes(user)
   );
 
-  const handleErrorMessage = () => Alert.alert('Action cannot be done.', 'Please check your entered inputs.', [
-    {
-      text: 'OK',
-      onPress: () => console.log('OK Pressed'),
-      style: 'cancel',
-    },]);
 
   const handleAddRequest = () => {
     // TODO: implement some sort of response on failure
@@ -69,9 +93,8 @@ const App: FC = ({ navigation }) => {
       amount: reqAmount,
     });
   };
-
-  
-  const handleRequest = async () => {
+  //most likely not using the below handleRequest due to error messages
+  const handleRequest2 = async () => {
     if (!recipient || !user) return;
     console.log("requesting", user.username, recipient, reqAmount, sendPayment)
     const paid = await addRequest({
@@ -83,23 +106,9 @@ const App: FC = ({ navigation }) => {
     if (paid) {
       console.log("Success");
       //setIsSuccess(true);
-      function handlePress() {
-        showMessage({
-          message: 'Request Sent Successfully!'
-        });
-      }
-      return (
-        <SafeAreaView style={styles.container}>
-          <Button
-            title="Show alert"
-            onPress={handlePress}/>
-          <FlashMessage/>
-        </SafeAreaView>
-      );
       //navigation.navigate("RequestsSuccess");
     } else {
       console.log("TODO: SHOW ERROR. PAYMENT NOT WORKING");
-
     }
   }
   const handleSend = async () => {
@@ -191,6 +200,7 @@ const App: FC = ({ navigation }) => {
                     keyboardType="numeric"
                     returnKeyType="done"
                 />
+                {reqError.length > 0 && <Text>{reqError}</Text>}
             </View>
             <TouchableOpacity>
                 <Text style={{ color: "#300796", textAlign: 'center', fontWeight: 'bold' }}>Repeat</Text>
