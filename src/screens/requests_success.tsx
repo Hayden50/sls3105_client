@@ -36,6 +36,7 @@ const App: FC = ({ navigation }) => {
       friend_username: searchTerm,
       amount: reqAmount,
     });
+
   };
 
   return (
