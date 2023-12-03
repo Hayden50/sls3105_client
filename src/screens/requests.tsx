@@ -240,14 +240,6 @@ const App: FC = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         <View style={styles.buttonContainer}>
-          {/* <View style={styles.menuContainer}>
-            <SimpleMenu
-              paymentValue={reqAmount}
-              userUsername={user?.username}
-              friendUsername={searchTerm}
-            />
-          </View> */}
-
           <TouchableOpacity
             onPress={handleRequest}
             style={styles.button}
