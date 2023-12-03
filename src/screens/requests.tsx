@@ -238,7 +238,6 @@ const App: FC = ({ navigation }) => {
             <TouchableOpacity>
                 <Text style={{ color: "#300796", textAlign: 'center', fontWeight: 'bold' }}>Repeat</Text>
             </TouchableOpacity>
-            {reqError.length > 0 && <Text>{reqError}</Text>}
           </View>
         <View style={styles.buttonContainer}>
           {/* <View style={styles.menuContainer}>
@@ -251,7 +250,7 @@ const App: FC = ({ navigation }) => {
 
           <TouchableOpacity
             onPress={handleRequest}
-            style={styles.button}
+            style={styles.rectangleButton}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               Request
@@ -259,22 +258,24 @@ const App: FC = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleSend}
-            style={styles.button}
+            style={styles.rectangleButton}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               One-Time Payment
             </Text>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity
+          <TouchableOpacity
             onPress={() => navigation.navigate("RecurPayments")}
-            style={styles.button}
+            style={styles.rectangleButton}
           >
             <Text style={{ color: "#fff", fontWeight: 'bold', textAlign: 'center' }}>
               Recurring Payments
             </Text>
         </TouchableOpacity>
-        <View style={{ marginTop: 10 }}></View>
+        </View>
+        <View style={{ marginTop: 50 }}></View>
+        {recipError.length > 0 && <Text>{recipError}</Text>}
+        {reqError.length > 0 && <Text>{reqError}</Text>}
       </View>
     </View>
   );
@@ -408,14 +409,14 @@ const styles = StyleSheet.create({
     width: 50,
   },
   rectangleButton: {
-    borderWidth: 1,
-    borderRadius: 30,
+    width:75,
+    height:100,
     marginTop: 10,
-    marginBottom: 10,
-    padding: 15,
+    borderRadius: 10,
     backgroundColor: "#300796",
     marginLeft: 30,
     marginRight: 30,
+    justifyContent:"center",
     flexGrow: 1
   }
 });
