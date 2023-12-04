@@ -1,5 +1,11 @@
 # Junior Design P2P Payment System Client App
 
+## Prerequisite Softwares
+1. Node v16+ - [download](https://nodejs.org/en/download)
+2. Git
+3. Expo Go for phone testing (app store)
+4. Xcode for iOS simulation
+
 ## Quick Start Guide
 1. Navigate to root of project
 2. Run ``npm i`` to install dependencies
@@ -7,6 +13,10 @@
    a. Run ``npx expo start`` to generate a QR code to run the app locally
    b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
 4. Navigate to the generated QR code to test project
+
+## Troubleshoting guide
+1. Ensure Convex url is configured in dotenv
+2. For questions - email devsls105@gmail.com
 
 # Release Notes
 ## Version 0.5.0
