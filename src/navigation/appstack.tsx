@@ -15,6 +15,7 @@ const MainStackNavigator = () => {
       <Screen name="Home" component={Home} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Transactions" component={Transactions} />
+      <Screen name="RequestsSuccess" component={RequestsSuccess} />
     </Navigator>
   );
 };

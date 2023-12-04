@@ -12,6 +12,7 @@ import { useMutation, useQuery } from "../../convex/_generated/react";
 import { headerSize } from "../lib/styles";
 import TransactionComponent from "../components/transaction";
 import Popup from "../components/popup";
+import { RequestsNavigator } from "../navigation/appstack";
 
 const getTransactionData = (user: any) => {
   const data = (useQuery("listTransactions") || [])
