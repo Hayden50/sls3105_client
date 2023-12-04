@@ -12,6 +12,7 @@ import { useQuery } from "../../convex/_generated/react";
 import { headerSize } from "../lib/styles";
 import TransactionComponent from "../components/transaction";
 import Popup from "../components/popup";
+import { RequestsNavigator } from "../navigation/appstack";
 
 const getTransactionData = (user: any) => {
     const data = (useQuery("listTransactions") || [])
@@ -107,7 +108,7 @@ const App: FC = ({ navigation }) => {
                     <Text>Confirm paying ${selectedAmount} to {selectedItem}</Text>
                   )}
                   <TouchableOpacity onPress = {() => navigation.navigate("RequestsSuccess")}>
-                    <Text>Yes</Text>
+                    <Text>Accept</Text>
                   </TouchableOpacity>
                 </Popup>
             </View>
