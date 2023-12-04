@@ -102,6 +102,12 @@ const App: FC = ({ navigation }) => {
     setReqAmount(num);
   };
 
+  const handlePendingRequests = (user: any, num:string): void => {
+    navigation.navigate("Send and Request");
+    setRecipient(user);
+    handleTextChange(num);
+  };
+
   const filtered_friends = friends.filter((user) => user.includes(searchTerm));
   const filtered_users = users.filter(
     (user) => user.includes(searchTerm) && !friends.includes(user)
