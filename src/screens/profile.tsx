@@ -1,5 +1,5 @@
 import { useClerk } from "@clerk/clerk-expo";
-import React, { FC } from "react";
+import React, { FC, useState} from "react";
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useQuery } from "../../convex/_generated/react";
 import { headerSize } from "../lib/styles";
 import TransactionComponent from "../components/transaction";
+import Popup from "../components/popup";
 
 const getTransactionData = (user: any) => {
     const data = (useQuery("listTransactions") || [])
@@ -40,6 +41,23 @@ const App: FC = ({ navigation }) => {
 
   const userFromConvex =
     useQuery("getUser", { username: user?.username }) || null;
+
+  
+  const [isPopupVisible, setPopupVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState(null);
+
+  const showPopup = (item:any) => {
+    setSelectedItem(item.friend_username);
+    setSelectedAmount(item.amount);
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setSelectedItem(null);
+    setPopupVisible(false);
+  };
+    
 
   return (
     <View style={styles.container}>
@@ -80,12 +98,23 @@ const App: FC = ({ navigation }) => {
             data={requestData}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => showPopup(item)}>
             <View style={styles.requestItem}>
                 <Text style={styles.requestItemText}>{item.friend_username}</Text>
                 <Text style={styles.requestItemAmount}>${item.amount}</Text>
+                <Popup isVisible={isPopupVisible} onClose={closePopup}>
+                  {selectedItem && (
+                    <Text>Confirm paying ${selectedAmount} to {selectedItem}</Text>
+                  )}
+                  <TouchableOpacity onPress = {() => navigation.navigate("RequestsSuccess")}>
+                    <Text>Yes</Text>
+                  </TouchableOpacity>
+                </Popup>
             </View>
+            </TouchableOpacity>
             )}
         />
+        
       </View>
       <View style={{flexGrow: 1, maxHeight: '39%'}}>
         <Text style={styles.header}>History</Text>
