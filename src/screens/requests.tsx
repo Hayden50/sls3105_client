@@ -130,7 +130,10 @@ const App: FC = ({ navigation }) => {
                     >
                       <TouchableOpacity
                         onPress={() => {
-                          setRecipient(user);
+                            if(recipient == user) 
+                                setRecipient("");
+                            else
+                                setRecipient(user);
                         }}
                       >
                         <Text style={{ fontFamily: "WorkSans_400Regular" }}>
@@ -159,7 +162,10 @@ const App: FC = ({ navigation }) => {
                     >
                       <TouchableOpacity
                         onPress={() => {
-                          setRecipient(user);
+                          if(recipient == user)
+                            setRecipient("");
+                            else
+                            setRecipient(user);
                         }}
                       >
                         <Text style={{ fontFamily: "WorkSans_400Regular" }}>
