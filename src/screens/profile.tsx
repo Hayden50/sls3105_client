@@ -51,7 +51,7 @@ const App: FC = ({ navigation }) => {
   const [selectedAmount, setSelectedAmount] = useState(null);
 
   const showPopup = (item: any) => {
-    setSelectedItem(item.friend_username);
+    setSelectedItem(item.user_username);
     setSelectedAmount(item.amount);
     setPopupVisible(true);
   };
@@ -71,8 +71,8 @@ const App: FC = ({ navigation }) => {
     ) {
       closePopup();
       await deleteRequest({
-        user_username: user?.username,
-        friend_username: selectedItem,
+        user_username: selectedItem,
+        friend_username: user?.username,
         amount: selectedAmount,
       });
     }
