@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 50,
     textTransform: "capitalize",
+    fontWeight: "bold",
   },
   circle: {
     display: "flex",
