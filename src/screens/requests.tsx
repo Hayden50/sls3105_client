@@ -10,6 +10,7 @@ import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import { headerSize } from "../lib/styles";
+import { FlatList } from "react-native-gesture-handler";
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -151,7 +152,7 @@ const App: FC = ({ navigation }) => {
                 })}
             </View>
           )}
-        />
+
         <Text style={styles.friendsTitle}>Users</Text> 
           <FlatList
           // style={styles.requestList}
@@ -327,9 +328,7 @@ const App: FC = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: 30 }}></View>
-        <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>
-          {recipError}
-        </Text>
+        <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>{recipError}</Text>
       </View>
     </View>
   );
