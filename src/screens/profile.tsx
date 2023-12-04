@@ -1,5 +1,5 @@
 import { useClerk } from "@clerk/clerk-expo";
-import React, { FC, useState} from "react";
+import React, { FC, useState } from "react";
 import {
   View,
   Text,
@@ -8,28 +8,28 @@ import {
   FlatList,
 } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
-import { useQuery } from "../../convex/_generated/react";
+import { useMutation, useQuery } from "../../convex/_generated/react";
 import { headerSize } from "../lib/styles";
 import TransactionComponent from "../components/transaction";
 import Popup from "../components/popup";
 import { RequestsNavigator } from "../navigation/appstack";
 
 const getTransactionData = (user: any) => {
-    const data = (useQuery("listTransactions") || [])
-      .filter(
-        (trans) =>
-          trans.sender_username == user?.username ||
-          trans.receiver_username == user?.username
-      )
-      .reverse();
-  
-    const res = data.map((transaction) => ({
-      ...transaction,
-      sent_money: transaction.sender_username === user?.username,
-    }));
-  
-    return res;
-  };
+  const data = (useQuery("listTransactions") || [])
+    .filter(
+      (trans) =>
+        trans.sender_username == user?.username ||
+        trans.receiver_username == user?.username
+    )
+    .reverse();
+
+  const res = data.map((transaction) => ({
+    ...transaction,
+    sent_money: transaction.sender_username === user?.username,
+  }));
+
+  return res;
+};
 
 const App: FC = ({ navigation }) => {
   const { user } = useUser();
@@ -43,12 +43,14 @@ const App: FC = ({ navigation }) => {
   const userFromConvex =
     useQuery("getUser", { username: user?.username }) || null;
 
-  
+  const deleteRequest = useMutation("deleteRequest");
+  const sendPayment = useMutation("sendPayment");
+
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
 
-  const showPopup = (item:any) => {
+  const showPopup = (item: any) => {
     setSelectedItem(item.friend_username);
     setSelectedAmount(item.amount);
     setPopupVisible(true);
@@ -58,74 +60,90 @@ const App: FC = ({ navigation }) => {
     setSelectedItem(null);
     setPopupVisible(false);
   };
-    
+
+  const handleRequestSubmission = async () => {
+    if (
+      await sendPayment({
+        userUsername: user?.username,
+        friendUsername: selectedItem,
+        payment: selectedAmount,
+      })
+    ) {
+      closePopup();
+      await deleteRequest({
+        user_username: user?.username,
+        friend_username: selectedItem,
+        amount: selectedAmount,
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
-      {/* <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={styles.backButton}
-      >
-        <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-          {"\u21A9"}
-        </Text>
-        
-      </TouchableOpacity> */}
-      <View style={{height: '35%', marginTop: 35}}>
-        <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <TouchableOpacity
-                onPress={() => {
-                signOut();
-                }}
-                style={styles.button}
-            >
-                <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
-                Log out
-                </Text>
-            </TouchableOpacity>
+      <View style={{ height: "35%", marginTop: 35 }}>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              signOut();
+            }}
+            style={styles.button}
+          >
+            <Text style={{ fontFamily: "WorkSans_400Regular", color: "#fff" }}>
+              Log out
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={{marginTop: -20}}></View>
+        <View style={{ marginTop: -20 }}></View>
         <View style={styles.circle}>
-            <Text style={styles.letter}>{user?.username[0]}</Text>
+          <Text style={styles.letter}>{user?.username[0]}</Text>
         </View>
         <Text style={styles.greeting}>Hello @{user?.username}!</Text>
-        <Text style={styles.balance}>Balance: ${userFromConvex?.balance || 0}</Text>
-              
+        <Text style={styles.balance}>
+          Balance: ${userFromConvex?.balance || 0}
+        </Text>
       </View>
-      <View style={{maxHeight: '21%'}}>
+      <View style={{ maxHeight: "21%" }}>
         <Text style={styles.header}>Pending Requests</Text>
         <FlatList
-            style={styles.requestList}
-            data={requestData}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
+          style={styles.requestList}
+          data={requestData}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
             <TouchableOpacity onPress={() => showPopup(item)}>
-            <View style={styles.requestItem}>
-                <Text style={styles.requestItemText}>{item.friend_username}</Text>
+              <View style={styles.requestItem}>
+                <Text style={styles.requestItemText}>
+                  {item.friend_username}
+                </Text>
                 <Text style={styles.requestItemAmount}>${item.amount}</Text>
                 <Popup isVisible={isPopupVisible} onClose={closePopup}>
                   {selectedItem && (
                     <Text style={styles.confirmText}>Confirm paying ${selectedAmount} to {selectedItem}</Text>
                   )}
-                  <TouchableOpacity onPress = {() => navigation.navigate("RequestsSuccess")}>
-                    <Text style={styles.acceptText}>Accept</Text>
+                  <TouchableOpacity onPress={() => handleRequestSubmission()}>
+                    <Text style={styles.acceptText}>Yes</Text>
                   </TouchableOpacity>
                 </Popup>
-            </View>
+              </View>
             </TouchableOpacity>
-            )}
+          )}
         />
-        
       </View>
-      <View style={{flexGrow: 1, maxHeight: '39%'}}>
+      <View style={{ flexGrow: 1, maxHeight: "39%" }}>
         <Text style={styles.header}>History</Text>
         <FlatList
-            style={styles.requestList}
-            data={transactions}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <TransactionComponent transaction={item} />}
+          style={styles.requestList}
+          data={transactions}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <TransactionComponent transaction={item} />}
         />
-        </View>
+      </View>
     </View>
   );
 };
@@ -197,7 +215,7 @@ const styles = StyleSheet.create({
   },
   requestList: {
     flexGrow: 1,
-    marginBottom: 15
+    marginBottom: 15,
   },
   requestItem: {
     borderWidth: 1,
