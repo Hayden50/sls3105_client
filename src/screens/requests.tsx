@@ -122,7 +122,7 @@ const App: FC = ({ navigation }) => {
                         <View style={styles.friendsList}>
                             <Text style={styles.friendsTitle}>Friends</Text>
                             {friends &&
-                                filtered_friends.slice(0, 10).map((user) => {
+                                filtered_friends.slice(0, 3).map((user) => {
                                     return (
                                         <View style={recipient == user ? styles.friendsRowSelected : styles.friendsRow} key={user}>
                                             <TouchableOpacity
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
         overflow: 'scroll',
         gap: 2,
         width: "100%",
-        height: 170
+        height: 150
     },
     friendsList: {
         display: "flex",
@@ -338,6 +338,7 @@ const styles = StyleSheet.create({
         gap: 2,
         width: "100%",
         marginBottom: 10,
+        overflow: 'scroll'
     },
     friendsRow: {
         display: "flex",

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 10, // Rounded corners
     padding: 15, // Inner padding
     marginBottom: 10, // Space between each transaction container
-    width: Dimensions.get("window").width - 40, // Take up the width of the screen with some margin
+    width: '100%', // Take up the width of the screen with some margin
     alignSelf: "center", // Center the component
     borderWidth: 3,
   },

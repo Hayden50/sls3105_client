@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   requestList: {
     flexGrow: 1,
-    marginBottom: 15,
+    marginBottom: 15
   },
   requestItem: {
     borderWidth: 1,

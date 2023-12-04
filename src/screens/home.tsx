@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
 import { useUser } from "@clerk/clerk-expo";
 import { FlatList } from "react-native-gesture-handler";
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 
 const App: FC = ({navigation}) => {
@@ -22,14 +23,6 @@ const App: FC = ({navigation}) => {
 
     const handleSearchClick = () => {
         console.log("Clicked Search Bar");
-    }
-
-    const handleAddFriend = () => {
-        addFriends({ user_username: user?.username, friend_username: searchTerm })
-    }
-
-    const handleRemoveFriend = () => {
-        deleteFriend({ user_username: user?.username, friend_username: searchTerm })
     }
 
     const handleAddButton = (friendUser: string) => {
@@ -55,15 +48,22 @@ const App: FC = ({navigation}) => {
             />
             <View style={styles.localContainer}>
                 <View style={styles.friendsContainer}>
-                    {filtered_friends.length > 0 && <View style={styles.friendsList} >
+                    {filtered_friends.length > 0 && 
+                    <View style={styles.friendsList} >
                         <Text style={styles.friendsTitle}>Friends</Text>
                         <View style = {{height: 200}}>
                         <FlatList
                         data={friends }
+                        style = {{backgroundColor: 'transparent'}}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleRemoveButton(item)}>
-                            <Text style={styles.friendsRow}>@{item}</Text>
-                            </TouchableOpacity>
+                            <View 
+                                style={styles.friendsRow}
+                                >
+                                <Text>@{item}</Text>
+                                <TouchableOpacity onPress={() => handleRemoveButton(item)}>
+                                    <MaterialCommunityIcons name="account-remove" color={"red"} size={20}/>
+                                </TouchableOpacity>
+                            </View>
                         )}
                         keyExtractor={(item) => item.toString()}
                         />
@@ -73,13 +73,18 @@ const App: FC = ({navigation}) => {
                     <View style={styles.usersList}>
                         <Text style={styles.friendsTitle}>All Users</Text>
                         {filtered_users.length > 0 ? (
-                        <View style={{ height:155 }}>
+                        <View style={{ height: 200 }}>
                             <FlatList
                             data={filtered_users}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={() => handleAddButton(item)} >
-                                <Text style={styles.friendsRow}>@{item}</Text>
+                                <View 
+                                    style={styles.friendsRow}
+                                >
+                                <Text>@{item}</Text>
+                                <TouchableOpacity onPress={() => handleAddButton(item)}>
+                                    <MaterialCommunityIcons name="account-plus" color={"green"} size={20}/>
                                 </TouchableOpacity>
+                            </View>
                             )}
                             keyExtractor={(item) => item.toString()}
                             />
@@ -89,7 +94,7 @@ const App: FC = ({navigation}) => {
                         )}
                     </View>
                 </View>
-                <View style = {styles.buttonContainer}>
+                {/* <View style = {styles.buttonContainer}>
                     <TouchableOpacity
                         onPress={handleAddFriend}
                         style={styles.button}
@@ -103,7 +108,7 @@ const App: FC = ({navigation}) => {
                     >
                         <Text style = {{fontFamily: 'WorkSans_400Regular', color: '#fff'}}>Remove friend</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View style = {{marginTop: 10}}></View>
             </View>
@@ -119,7 +124,8 @@ const styles = StyleSheet.create({
         textAlign: 'center', 
         color: '#fff', 
         fontSize: 50,
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        fontWeight: 'bold'
     },
     circle: {
         display: 'flex',
@@ -177,19 +183,23 @@ const styles = StyleSheet.create({
     },
     friendsRow: {
         display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         borderColor: "lightgrey",
         borderWidth: 1,
         borderRadius: 10,
         width: '100%',
         padding: 10,
-        backgroundColor: '#fff'
+        marginVertical: 1,
+        backgroundColor: 'white'
     },
     friendsTitle: {
         fontWeight: "bold",
         fontSize: 20,
         marginBottom: 4,
         fontFamily: 'WorkSans_600SemiBold',
-        textAlign: 'center'
+        textAlign: 'left'
     },
     usersList: {
         display: "flex",
