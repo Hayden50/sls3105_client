@@ -119,40 +119,8 @@ const App: FC = ({ navigation }) => {
       <View style={{ marginTop: 50 }}></View>
       <Text style={styles.greeting}>Send or Request</Text>
       <SearchBar onSearchChange={setSearchTerm} />
-      <View style={styles.localContainer}>
-        <View style={styles.friendsContainer}>
-          {/* {filtered_friends.length > 0 && (
-            <View style={styles.friendsList}>
-              <Text style={styles.friendsTitle}>Friends</Text>
-              {friends &&
-                filtered_friends.slice(0, 3).map((user) => {
-                  return (
-                    <View
-                      style={
-                        recipient == user
-                          ? styles.friendsRowSelected
-                          : styles.friendsRow
-                      }
-                      key={user}
-                    >
-                      <TouchableOpacity
-                        onPress={() => {
-                            if(recipient == user) 
-                                setRecipient("");
-                            else
-                                setRecipient(user);
-                        }}
-                      >
-                        <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                          @{user}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
-            </View>
-          )}
-           */}
+      {/* <View style={styles.localContainer}> */}
+      <View style={styles.friendsContainer}>
         <Text style={styles.friendsTitle}>Friends</Text> 
           <FlatList
           // style={styles.requestList}
@@ -170,6 +138,8 @@ const App: FC = ({ navigation }) => {
             </View>
           )}
         />
+        </View>
+        <View style = {styles.friendsContainer}>
         <Text style={styles.friendsTitle}>Users</Text> 
           <FlatList
           // style={styles.requestList}
@@ -347,7 +317,7 @@ const App: FC = ({ navigation }) => {
         <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>
           {recipError}
         </Text>
-      </View>
+      {/* </View> */}
     </View>
   );
 };
@@ -402,10 +372,11 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 10,
+    marginTop: 10,
     fontFamily: "WorkSans_600SemiBold",
-    textAlign: "left",
-    fontSize: headerSize,
+    textAlign: "center",
+    fontSize: 35,
   },
   button: {
     borderWidth: 1,
@@ -433,7 +404,8 @@ const styles = StyleSheet.create({
     overflow: "scroll",
     gap: 2,
     width: "100%",
-    height: 170,
+    maxHeight: '20%',
+    marginBottom: 10,
   },
   friendsList: {
     display: "flex",
