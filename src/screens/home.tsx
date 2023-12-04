@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 2,
     width: "100%",
-    marginBottom: 10,
+    marginBottom: 0,
   },
   friendsRow: {
     display: "flex",
