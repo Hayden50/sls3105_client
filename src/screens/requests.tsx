@@ -151,43 +151,25 @@ const App: FC = ({ navigation }) => {
                 })}
             </View>
           )}
-
-          {filtered_friends.length == 0 && (
-            <View style={styles.usersList}>
-              <Text style={styles.friendsTitle}>All Users</Text>
-              {filtered_users.length > 0 ? (
-                filtered_users.slice(0, 3).map((user) => {
-                  return (
-                    <View
-                      style={
-                        recipient == user
-                          ? styles.friendsRowSelected
-                          : styles.friendsRow
-                      }
-                      key={user}
-                    >
-                      <TouchableOpacity
-                        onPress={() => {
-                          if(recipient == user)
-                            setRecipient("");
-                            else
-                            setRecipient(user);
-                        }}
-                      >
-                        <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                          @{user}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })
-              ) : (
-                <Text style={{ fontFamily: "WorkSans_400Regular" }}>
-                  No users matching search criteria
-                </Text>
-              )}
+        />
+        <Text style={styles.friendsTitle}>Users</Text> 
+          <FlatList
+          // style={styles.requestList}
+          data={filtered_users}
+          keyExtractor={(item) => item}
+          renderItem={({ item: user }) => (
+            <View style={recipient === user ? styles.friendsRowSelected : styles.friendsRow} key={user}>
+              <TouchableOpacity
+                onPress={() => {
+                  setRecipient(user);
+                }}
+              >
+                <Text style={{ fontFamily: 'WorkSans_400Regular' }}>@{user}</Text>
+              </TouchableOpacity>
             </View>
           )}
+        />
+          
         </View>
         <View style={styles.inputAmount}>
           <Text
