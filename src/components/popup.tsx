@@ -19,7 +19,7 @@ const Popup: FC<PopupProps> = ({ isVisible, onClose, children }) => {
         <View style={styles.modalView}>
           {children}
           <TouchableOpacity onPress={onClose}>
-            <Text>Deny</Text>
+            <Text>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
