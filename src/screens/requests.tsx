@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { useQuery, useMutation } from "../../convex/_generated/react";
 import SearchBar from "../components/search_bar";
@@ -120,7 +121,7 @@ const App: FC = ({ navigation }) => {
       <SearchBar onSearchChange={setSearchTerm} />
       <View style={styles.localContainer}>
         <View style={styles.friendsContainer}>
-          {filtered_friends.length > 0 && (
+          {/* {filtered_friends.length > 0 && (
             <View style={styles.friendsList}>
               <Text style={styles.friendsTitle}>Friends</Text>
               {friends &&
@@ -151,6 +152,23 @@ const App: FC = ({ navigation }) => {
                 })}
             </View>
           )}
+           */}
+        <Text style={styles.friendsTitle}>Friends</Text> 
+          <FlatList
+          // style={styles.requestList}
+          data={filtered_friends}
+          keyExtractor={(item) => item}
+          renderItem={({ item: user }) => (
+            <View style={recipient === user ? styles.friendsRowSelected : styles.friendsRow} key={user}>
+              <TouchableOpacity
+                onPress={() => {
+                  setRecipient(user);
+                }}
+              >
+                <Text style={{ fontFamily: 'WorkSans_400Regular' }}>@{user}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         />
         <Text style={styles.friendsTitle}>Users</Text> 
           <FlatList
@@ -169,7 +187,6 @@ const App: FC = ({ navigation }) => {
             </View>
           )}
         />
-          
         </View>
         <View style={styles.inputAmount}>
           <Text
