@@ -19,7 +19,7 @@ const Popup: FC<PopupProps> = ({ isVisible, onClose, children }) => {
         <View style={styles.modalView}>
           {children}
           <TouchableOpacity onPress={onClose}>
-            <Text>Close</Text>
+            <Text style={styles.modalText}>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,11 +37,22 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "#300796",
     borderRadius: 10,
     padding: 35,
     alignItems: 'center',
-    elevation: 5, // For Android
+    elevation: 5,
+    borderWidth: 6,
+    borderColor: "#300796",
+  },
+  modalText:{
+    color: "#FFF",
+    borderColor: "#FFF",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 4,
+    marginBottom: -50,
+    fontSize: 17
   },
 });
 

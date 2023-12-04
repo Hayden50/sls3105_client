@@ -124,12 +124,10 @@ const App: FC = ({ navigation }) => {
                 <Text style={styles.requestItemAmount}>${item.amount}</Text>
                 <Popup isVisible={isPopupVisible} onClose={closePopup}>
                   {selectedItem && (
-                    <Text>
-                      Confirm paying ${selectedAmount} to {selectedItem}
-                    </Text>
+                    <Text style={styles.confirmText}>Confirm paying ${selectedAmount} to {selectedItem}</Text>
                   )}
                   <TouchableOpacity onPress={() => handleRequestSubmission()}>
-                    <Text>Yes</Text>
+                    <Text style={styles.acceptText}>Yes</Text>
                   </TouchableOpacity>
                 </Popup>
               </View>
@@ -236,5 +234,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "right",
+  },
+  acceptText:{
+    color: "#FFF",
+    borderColor: "#FFF",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 4,
+    marginBottom: 12,
+    fontSize: 17,
+  },
+  confirmText:{
+    color: "#FFF",
+    marginTop: -20,
+    marginBottom: 12,
+    fontSize: 20,
+
   },
 });
