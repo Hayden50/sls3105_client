@@ -25,7 +25,8 @@
 ### Known Issues
 * Mojaloop peer-to-peer implementation is not available yet in Azure and still requires work from their team before we can implement
 
-# Release Notes
+---
+
 ## Version 0.4.0
 ### New Features
 * Bottom-tab navigation
