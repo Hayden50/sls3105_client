@@ -37,7 +37,7 @@ const App: FC = ({ navigation }) => {
   const transactions = getTransactionData(user);
 
   const requestData = (useQuery("listRequests") || [])
-    .filter((req) => req.user_username == user?.username)
+    .filter((req) => req.friend_username == user?.username)
     .reverse();
 
   const userFromConvex =
@@ -118,18 +118,16 @@ const App: FC = ({ navigation }) => {
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => showPopup(item)}>
               <View style={styles.requestItem}>
-                <Text style={styles.requestItemText}>
-                  {item.friend_username}
-                </Text>
+                <Text style={styles.requestItemText}>{item.user_username}</Text>
                 <Text style={styles.requestItemAmount}>${item.amount}</Text>
                 <Popup isVisible={isPopupVisible} onClose={closePopup}>
                   {selectedItem && (
-                    <Text>
+                    <Text style={styles.confirmText}>
                       Confirm paying ${selectedAmount} to {selectedItem}
                     </Text>
                   )}
                   <TouchableOpacity onPress={() => handleRequestSubmission()}>
-                    <Text>Yes</Text>
+                    <Text style={styles.acceptText}>Yes</Text>
                   </TouchableOpacity>
                 </Popup>
               </View>
@@ -236,5 +234,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "right",
+  },
+  acceptText: {
+    color: "#FFF",
+    borderColor: "#FFF",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 4,
+    marginBottom: 12,
+    fontSize: 17,
+  },
+  confirmText: {
+    color: "#FFF",
+    marginTop: -20,
+    marginBottom: 12,
+    fontSize: 20,
   },
 });
