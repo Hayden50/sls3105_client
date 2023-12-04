@@ -2,9 +2,9 @@
 
 ## Prerequisite Softwares
 1. Node v16+ - [download](https://nodejs.org/en/download)
-2. Git
+2. Git - [download](https://git-scm.com/downloads)
 3. Expo Go for phone testing (app store)
-4. Xcode for iOS simulation
+4. Xcode for iOS simulation (only available on mac)
 
 ## Quick Start Guide
 1. Navigate to root of project
@@ -12,7 +12,7 @@
 3. You need two terminals open to run the project.
    a. Run ``npx expo start`` to generate a QR code to run the app locally
    b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
-4. Navigate to the generated QR code to test project
+4. Navigate to the generated QR code to test project via phone testing or click 'i' for Xcode iOS simulation
 
 ## Troubleshoting guide
 1. Ensure Convex url is configured in dotenv
