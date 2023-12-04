@@ -123,7 +123,7 @@ const App: FC = ({ navigation }) => {
                 <Popup isVisible={isPopupVisible} onClose={closePopup}>
                   {selectedItem && (
                     <Text style={styles.confirmText}>
-                      Confirm paying ${selectedAmount} to {selectedItem}
+                      Confirm paying ${selectedAmount} to {item.user_username}
                     </Text>
                   )}
                   <TouchableOpacity onPress={() => handleRequestSubmission()}>
