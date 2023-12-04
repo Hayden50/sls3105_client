@@ -9,6 +9,23 @@
 4. Navigate to the generated QR code to test project
 
 # Release Notes
+## Version 0.5.0
+### New Features
+* Error messages for failed payments
+* Recurring payments button
+* Refreshed UI for friends list and users list on landing page
+* Button for paying user requests from the profile page
+* Connected Convex database to transaction history to display proper transaction history
+
+### Bug Fixes
+* Fixed sorting search bar not sorting on friends list
+* Fixed multiple error messages popping up when the failed payment
+* Fixed formatting errors when aspect ratio changes
+
+### Known Issues
+* Mojaloop peer-to-peer implementation is not available yet in Azure and still requires work from their team before we can implement
+
+# Release Notes
 ## Version 0.4.0
 ### New Features
 * Bottom-tab navigation
