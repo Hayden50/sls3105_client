@@ -51,7 +51,7 @@ const App: FC = ({ navigation }) => {
   const [selectedAmount, setSelectedAmount] = useState(null);
 
   const showPopup = (item: any) => {
-    setSelectedItem(item.friend_username);
+    setSelectedItem(item.user_username);
     setSelectedAmount(item.amount);
     setPopupVisible(true);
   };
@@ -71,8 +71,8 @@ const App: FC = ({ navigation }) => {
     ) {
       closePopup();
       await deleteRequest({
-        user_username: user?.username,
-        friend_username: selectedItem,
+        user_username: selectedItem,
+        friend_username: user?.username,
         amount: selectedAmount,
       });
     }
@@ -123,7 +123,7 @@ const App: FC = ({ navigation }) => {
                 <Popup isVisible={isPopupVisible} onClose={closePopup}>
                   {selectedItem && (
                     <Text style={styles.confirmText}>
-                      Confirm paying ${selectedAmount} to {selectedItem}
+                      Confirm paying ${selectedAmount} to {item.user_username}
                     </Text>
                   )}
                   <TouchableOpacity onPress={() => handleRequestSubmission()}>
