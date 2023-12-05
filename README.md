@@ -22,8 +22,8 @@ Do this after downloading the ZIP file. Dependencies must be installed for each 
 ## Run Instructions
 1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd /insert path here/
 2. You need two terminals open to run the project.
-   a. Run ``npx expo start`` to generate a QR code to run the app locally
-   b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
+   * Run ``npx expo start`` to generate a QR code to run the app locally
+   * Run ``npx convex dev --typecheck=disable`` to start the backend locally
 3. Navigate to the generated QR code to test project via phone testing or click 'i' for Xcode iOS simulation
 
 ## Troubleshooting guide
