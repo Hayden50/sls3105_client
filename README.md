@@ -7,20 +7,20 @@
 4. Xcode for iOS simulation (only available on mac)
 
 ## Download Instructions
-1. Navigate to green <>Code box in this repository (sls3105_client)
-2. Click on Download ZIP
-3. Move ZIP file wherever you want it to be on your device
-4. Click on ZIP file to retrieve folder which hosts needed files for project
+1. Navigate to green <>Code box in this repository (sls3105_client) which is to the left of the 'About' section
+2. Click on 'Download ZIP'
+3. Move the ZIP file wherever you want it to be on your device
+4. Click on the ZIP file to retrieve a folder which hosts needed files for the project
 5. Only the ZIP file can be discarded afterwards
 
 ## Install Dependencies
-Do this after downloading the ZIP file. Dependencies must be installed for each time project repository is downloaded.
-1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd <path> 
+Do this after downloading the ZIP file. Dependencies must be installed for each time the project repository is downloaded.
+1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd /insert path here/
 2. Run ``npm i`` to install dependencies
-3. All required dependent libraries will be downloaded with the command above - no additional downloads necessary for dependencies
+3. All required dependent libraries will be downloaded with the command above - no additional downloads necessary for installing dependencies
 
 ## Run Instructions
-1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd <path>
+1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd /insert path here/
 2. You need two terminals open to run the project.
    a. Run ``npx expo start`` to generate a QR code to run the app locally
    b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
