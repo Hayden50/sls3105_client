@@ -6,17 +6,34 @@
 3. Expo Go for phone testing (app store)
 4. Xcode for iOS simulation (only available on mac)
 
-## Quick Start Guide
-1. Navigate to root of project
+## Download Instructions
+1. Navigate to green <>Code box in this repository (sls3105_client)
+2. Click on Download ZIP
+3. Move ZIP file wherever you want it to be on your device
+4. Click on ZIP file to retrieve folder which hosts needed files for project
+5. Only the ZIP file can be discarded afterwards
+
+## Install Dependencies
+Do this after downloading the ZIP file. Dependencies must be installed for each time project repository is downloaded.
+1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd <path> 
 2. Run ``npm i`` to install dependencies
-3. You need two terminals open to run the project.
+3. All required dependent libraries will be downloaded with the command above - no additional downloads necessary for dependencies
+
+## Run Instructions
+1. In your device's command prompt (terminal, windows command prompt, etc.), navigate to root of project (sls3105_client folder): cd <path>
+2. You need two terminals open to run the project.
    a. Run ``npx expo start`` to generate a QR code to run the app locally
    b. Run ``npx convex dev --typecheck=disable`` to start the backend locally
-4. Navigate to the generated QR code to test project via phone testing or click 'i' for Xcode iOS simulation
+3. Navigate to the generated QR code to test project via phone testing or click 'i' for Xcode iOS simulation
 
-## Troubleshoting guide
-1. Ensure Convex url is configured in dotenv
-2. For questions - email devsls105@gmail.com
+## Troubleshooting guide
+
+| Problem | Solution |
+| --- | --- |
+| Password creation when creating an account | Check command prompt which returns errors in entered password |
+| Hidden elements on screen | Press 'r' in command prompt to reload app |
+| Convex | Ensure Convex url is configured in dotenv (For questions - email devsls105@gmail.com) |
+| Account creation error | Read error message(s) in command prompt |
 
 # Release Notes
 ## Version 0.5.0
